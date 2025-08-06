@@ -7,3 +7,10 @@ footer.endpage-footer {
     bottom: 0;
     width: 100%;
 }
+
+.contaner img {
+    width: 30%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}

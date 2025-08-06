@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>{{ description }}</p>
+    <p class="text-center">{{ description }}</p>
+    {% load static %}
+    <div class="container">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="{% static 'images/CetemCod.png' %}" alt="Cetem Codificação" class="img-fluid">
+                    </td>
+                    <td>
+                        <img src="{% static 'images/CetemEmb.png' %}" alt="Cetem Codificação" class="img-fluid">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 
 {% block extra_scripts %}

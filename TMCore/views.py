@@ -26,7 +26,7 @@ def contactus(request):
 def index(request):
     context = {
         'title': 'Techno Mania - Home',
-        'message': 'Smart solutions for you',
+        'message': 'Escolha a linha de produtos',
         'description': '',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
         'user': request.user,
