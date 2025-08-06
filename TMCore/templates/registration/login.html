@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if is_authenticated %}
+                    <script>
+                        window.location.href = "{% url 'index' %}";
+                    </script>
+                {% else %}
+                    <form method="post" action="{% url 'login' %}" class="mt-4">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">User</label>
+                            <input type="text" class="form-control" id="username" name="username" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    {% for x, v in form.errors.items %}
+                        <div class="alert alert-danger mt-3">
+                            <strong>{{ x }}:</strong> {{ v|join:", " }}
+                        </div>
+                    {% endfor %}
+                    {% if message %}
+                        <div class="alert alert-info mt-3">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

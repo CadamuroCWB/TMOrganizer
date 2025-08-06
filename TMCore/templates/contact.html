@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if is_authenticated %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if contact_info %}
+                                    {% for contact in contact_info %}
+                                        <tr>
+                                            <td>{{ contact.id }}</td>
+                                            <td>{{ contact.name }}</td>
+                                            <td>{{ contact.email }}</td>
+                                            <td>{{ contact.status }}</td>
+                                            <td>{{ contact.created_at }}</td>
+                                            <td>{{ contact.updated_at }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No contacts found.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <a href="#" class="btn btn-outline-success btn-sm" tabindex="-1" role="button" aria-disabled="true">Add</a>
+                        <a href="#" class="btn btn-outline-primary btn-sm disabled" tabindex="-1" role="button" aria-disabled="true">Update</a>
+                        <a href="#" class="btn btn-outline-danger btn-sm disabled" tabindex="-1" role="button" aria-disabled="true">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}
