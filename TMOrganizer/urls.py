@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('controlpanel/', admin.site.urls),
     path('', include('TMCore.urls')),
+    path('', include('TMSale.urls')),
 ]

@@ -26,8 +26,8 @@ def contactus(request):
 def index(request):
     context = {
         'title': 'Techno Mania - Home',
-        'message': 'Escolha a linha de produtos',
-        'description': '',
+        'message': '',
+        'description': 'Escolha a linha de produtos',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
         'user': request.user,
         'is_authenticated': request.user.is_authenticated,
@@ -35,6 +35,16 @@ def index(request):
         'user_agent': request.headers.get('User-Agent', 'Unknown'),
     }
     return render(request, 'index.html', context)
+
+# sale views
+def item(request):
+    context = {
+        'title': 'Techno Mania - Item',
+        'message': 'Os melhores produtos para você',
+        'description': 'Explore nossa gama de produtos projetados para melhorar sua experiência tecnológica.',
+        'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+    }
+    return render(request, 'item.html', context)
 
 # error handlers
 def custom_404_view(request, exception):

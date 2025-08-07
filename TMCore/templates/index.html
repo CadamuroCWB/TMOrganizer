@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
-    <p class="text-center">{{ description }}</p>
-    {% load static %}
+    <div class="container mt-4 text-center">
+        <p class="m-0 display-4">{{ description }}</p>
+    </div>
     <div class="container">
         <table>
             <tbody>
                 <tr>
                     <td>
-                        <img src="{% static 'images/CetemCod.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        <a href="{% url 'TMSale/item.html' %}">
+                            <img src="{% static 'images/CetemCod.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        </a>
                     </td>
                     <td>
-                        <img src="{% static 'images/CetemEmb.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        <a href="{% url 'about' %}">
+                            <img src="{% static 'images/CetemEmb.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        </a>
                     </td>
                 </tr>
             </tbody>
