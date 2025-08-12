@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     'TMOrganizer',  # Your main application
     'TMCore',
-    'TMSale',  # Sales application
+    'TMSale',  # Sale application
     'bootstrap5',  # For Bootstrap integration
     'stdimage',  # For image handling
 ]

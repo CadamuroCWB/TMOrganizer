@@ -1,11 +1,41 @@
 /* TMCore/static/css/styles.css */
-footer.endpage-footer {
-    background-color: #f8f9fa;
-    padding: 20px;
+:root {
+    --user-text-color: #e4a093 ; /* #54443c */
+    --user-bg-color: #492729; /* #a37566 */ 
+    --user-color: #81646b; /* #bcac94 */ 
+    --user-font-size-header: 24px;
+    --user-font-size-body: 16px;
+    --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
+}
+
+h2 {
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    font-family: var(--user-font-family);
+}
+
+body {
+    background-color: var(--user-bg-color); /* Cor de fundo cinza claro */
+    color: var(--user-text-color); /* Cor do texto cinza escuro */
+    font-family: var(--user-font-family);
+}
+
+.master_menu {
+    background-color: var(--user-color); /* Cor de fundo cinza claro */
+    color: var(--user-text-color); /* Cor do texto cinza escuro */
+    font-family: var(--user-font-family);
+    padding: 10px 0;
+}
+
+.contaner{
+    background-color: var(--user-color);
+    color: var(--user-text-color);
+    font-family: var(--user-font-family);
+}
+
+.container-fluid.contaner-tmorganizer {
+    background-color: var(--user-color);
+    color: var(--user-text-color);
+    font-family: var(--user-font-family);
 }
 
 .contaner img {
@@ -13,4 +43,17 @@ footer.endpage-footer {
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: contain;
+}
+
+.endpage-tmorganizer {
+    background-color: var(--user-color);
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: var(--user-font-size-body);
+    letter-spacing: 0.106em;
+    color: var(--user-text-color);
+    font-family: var(--user-font-family);
 }
