@@ -1,2 +1,24 @@
 {% extends 'base.html' %}
-<p class="m-0 display-4">{{ description }}</p>
+{% load static %}
+{% block content %}
+    <p class="m-0 display-4">{{ description }}</p>
+    <div class="container">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="{% url 'item' %}">
+                            <img src="{% static 'images/CetemCodProd.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'about' %}">
+                            <img src="{% static 'images/CetemEmbProd.png' %}" alt="Cetem Codificação" class="img-fluid">
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

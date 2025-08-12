@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 
+from .forms import ContactUsForm
+
 # main views
 def about(request):
     context = {
@@ -12,12 +14,39 @@ def about(request):
     }
     return render(request, 'about.html', context)
 
-def contactus(request):
+def contact(request):
     context = {
-        'title': 'Techno Mania - Contact Us',
-        'message': 'Use the form below to get in touch with us.',
-        'description': 'We are at your disposal to answer your questions and better serve you.',
+        'title': 'Techno Mania - Contact',
+        'message': 'Register prospective customers and suppliers',
         'user': request.user,
+        'is_authenticated': request.user.is_authenticated,
+        'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+    }
+    return render(request, 'contact.html', context)
+
+def contactus(request):
+    form = ContactUsForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        phone = form.cleaned_data['phone']
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
+        print(f"Received contact form submission: {name}, {email}, {phone}, {subject}, {message}")
+        message = "Obrigado por entrar em contato conosco. Responderemos o mais breve possível."
+        form = ContactUsForm()  # Reset the form after submission
+    else:
+        message = "Por favor, preencha o formulário abaixo para entrar em contato conosco."
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
+    context = {
+        'form': form,
+        'title': 'Techno Mania - Contact Us',
+        'message': 'Utilize o formulário abaixo para entrar em contato conosco',
+        'description': 'We are at your disposal to answer your questions and better serve you.',
+        'user': user,
         'is_authenticated': request.user.is_authenticated,
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }

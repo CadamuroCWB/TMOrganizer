@@ -1,6 +1,6 @@
 from django.db import models
 
-class _item_unit_measurement(models.Model):
+class tm_unit_measurement(models.Model):
     name = models.CharField(max_length=50, unique=True)
     value = models.CharField(max_length=10)
     current_status = models.BooleanField(default=True)
@@ -19,7 +19,7 @@ class Item(models.Model):
     ncm = models.CharField(max_length=10, blank=True, null=True)
     ncm_excess = models.BooleanField(default=False)
     cest = models.CharField(max_length=10, blank=True, null=True)
-    unit_measurement = models.ForeignKey(_item_unit_measurement, on_delete=models.CASCADE, blank=True, null=True)
+    unit_measurement = models.ForeignKey(tm_unit_measurement, on_delete=models.CASCADE, blank=True, null=True)
     net_weight = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     gross_weight = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     number_expiration_days = models.IntegerField(default=0)
