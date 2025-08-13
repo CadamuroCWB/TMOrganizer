@@ -49,7 +49,7 @@ body {
     background-color: var(--user-color);
     padding: 10px;
     text-align: center;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     font-size: var(--user-font-size-body);

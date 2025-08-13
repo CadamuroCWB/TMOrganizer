@@ -1,29 +1,22 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load bootstrap5 %}
-{% bootstrap_messages %}
 
 {% block meta_keywords %}
     contact, support, inquiries, Techno Mania
 {% endblock %}
 
 {% block content %}
+    {% load bootstrap5 %}
     <div class="container">
         <form method="post" action="{% url 'contactus' %}" class="form" autocomplete="off">
             {% csrf_token %}
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    <strong>There were errors in your submission:</strong>
-                    <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
             {% bootstrap_form form %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             {% buttons %}
                 <button type="submit" class="btn btn-outline-success">Enviar</button>
             {% endbuttons %}
