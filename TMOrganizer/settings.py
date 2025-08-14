@@ -141,10 +141,10 @@ LOGOUT_REDIRECT_URL = 'index'  # Redirect to index after logout
 LOGIN_REDIRECT_URL = 'index'  # Redirect to index after login
 
 # Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-#EMAIL_HOST = 'tm2b.com.br'
-#EMAIL_PORT = 465
-#EMAIL_USE_TLS = True
-#EMAIL_HOST_USER = 'no-replay@tm2b.com.br'
-#EMAIL_HOST_PASSWORD = 'Cada885$'
+EMAIL_HOST = 'smtp.mail.yahoo.com.br'
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'acadamuro@yahoo.com.br'
+EMAIL_HOST_PASSWORD = 'wlrlrelvltgqmucr'

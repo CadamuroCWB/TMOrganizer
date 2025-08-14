@@ -29,21 +29,21 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            <a class="nav-link" href="{% url 'index' %}">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contactus' %}">Contact Us</a>
+                            <a class="nav-link" href="{% url 'contactus' %}">Fale conosco</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                            <a class="nav-link" href="{% url 'about' %}">Sobre</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                                <a class="nav-link" href="{% url 'contact' %}">Contato</a>
                             </li>
                             <li class="nav-item">
                                 <form id="logout-form" action="{% url 'logout' %}" method="post">
-                                    <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit(); return false;">Sign out</a>
+                                    <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit(); return false;">Sair</a>
                                     {% csrf_token %}
                                 </form>
                             </li>

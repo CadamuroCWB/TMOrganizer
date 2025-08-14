@@ -17,8 +17,8 @@ class ContactUsForm(forms.Form):
         email = EmailMessage(
             subject='Este e-mail foi enviado pelo site',
             body=f'Nome: {self.cleaned_data['name']}\nEmail: {self.cleaned_data['email']}\nTelefone: {self.cleaned_data['phone']}\nAssunto: {self.cleaned_data['subject']}\nMensagem: {self.cleaned_data['message']}',
-            from_email='no-replay@tm2b.com.br',
-            to=['acadamuro@gmail.com'],
+            from_email='acadamuro@yahoo.com.br',
+            to=['cadamuro@cetem.net.br'],
             headers={'Reply-To': self.cleaned_data['email']}
         )
         email.send()
