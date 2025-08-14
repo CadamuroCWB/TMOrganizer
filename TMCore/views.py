@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 
 from .forms import ContactUsForm
-from django.contrib import messages
+#from django.contrib import messages
 
 # main views
 def about(request):
@@ -29,11 +29,11 @@ def contactus(request):
     form = ContactUsForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            form.send_email()
-            messages.success = (request, "Obrigado por entrar em contato conosco. Responderemos o mais breve possível.")
+            form.send_mail()
+            #messages.success = (request, "Obrigado por entrar em contato conosco. Responderemos o mais breve possível.")
             #form = ContactUsForm()  # Reset the form after submission
-        else:
-            messages.error = (request, "Por favor, preencha o formulário abaixo para entrar em contato conosco.")
+        #else:
+            #messages.error = (request, "Por favor, preencha o formulário abaixo para entrar em contato conosco.")
     if request.user.is_authenticated:
         user = request.user
     else:

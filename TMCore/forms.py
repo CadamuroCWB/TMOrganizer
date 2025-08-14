@@ -1,5 +1,5 @@
 from django import forms
-from django.core.mail.message import EmailMessage
+from django.core.mail import EmailMessage
 
 class ContactUsForm(forms.Form):
     name = forms.CharField(
@@ -13,15 +13,15 @@ class ContactUsForm(forms.Form):
     message = forms.CharField(
         widget=forms.Textarea, label=("Mensagem"))
 
-    def send_email(self):
-        email = EmailMessage(
-            subject='Este e-mail foi enviado pelo site',
+    def send_mail(self):
+        msg = EmailMessage(
+            subject='Email enviado pelo site Techno Mania - Contato',
             body=f'Nome: {self.cleaned_data['name']}\nEmail: {self.cleaned_data['email']}\nTelefone: {self.cleaned_data['phone']}\nAssunto: {self.cleaned_data['subject']}\nMensagem: {self.cleaned_data['message']}',
             from_email='acadamuro@yahoo.com.br',
             to=['cadamuro@cetem.net.br'],
-            headers={'Reply-To': self.cleaned_data['email']}
+            #headers={'Reply-To': 'acadamuro@yahoo.com.br'}
         )
-        email.send()
+        msg.send()
 
     def clean(self):
         cleaned_data = super().clean()

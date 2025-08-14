@@ -143,8 +143,8 @@ LOGIN_REDIRECT_URL = 'index'  # Redirect to index after login
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.mail.yahoo.com.br'
-EMAIL_PORT = 587 
+EMAIL_HOST = 'smtp.mail.yahoo.com.br' # 'technomania.com.br' # 
+EMAIL_PORT = 587 # 465 # 
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'acadamuro@yahoo.com.br'
-EMAIL_HOST_PASSWORD = 'wlrlrelvltgqmucr'
+EMAIL_HOST_USER = 'acadamuro@yahoo.com.br' # 'no-replay@technomania.com.br' # 
+EMAIL_HOST_PASSWORD = 'wlrlrelvltgqmucr' # '1thYs2%45' # 
