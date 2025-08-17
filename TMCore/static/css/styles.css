@@ -8,8 +8,9 @@
     --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
 }
 
-h2 {
+h3 {
     text-align: center;
+    margin-top: 10px;
     font-family: var(--user-font-family);
 }
 

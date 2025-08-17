@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import ContactUsForm
-#from django.contrib import messages
 
 # main views
 def about(request):
     context = {
         'title': 'Techno Mania - About',
-        'message': 'Solutions for the tech enthusiast. Smart solutions for a tech-savvy world',
+        'msg_title': 'Solutions for the tech enthusiast. Smart solutions for a tech-savvy world',
         'description': 'Welcome to Techno Mania, your go-to source for the latest in technology, offering insights and solutions for tech enthusiasts. Explore the latest in technology with Techno Mania.',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }
@@ -18,7 +18,7 @@ def about(request):
 def contact(request):
     context = {
         'title': 'Techno Mania - Contact',
-        'message': 'Register prospective customers and suppliers',
+        'msg_title': 'Register prospective customers and suppliers',
         'user': request.user,
         'is_authenticated': request.user.is_authenticated,
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
@@ -29,11 +29,14 @@ def contactus(request):
     form = ContactUsForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            form.send_mail()
-            #messages.success = (request, "Obrigado por entrar em contato conosco. Responderemos o mais breve possível.")
+            try:
+                form.send_mail()
+            except Exception as e:
+                messages.error = (request, f"Ocorreu um erro ao enviar sua mensagem: {e}")
+            messages.success = (request, "Obrigado por entrar em contato conosco. Responderemos o mais breve possível.")
             #form = ContactUsForm()  # Reset the form after submission
-        #else:
-            #messages.error = (request, "Por favor, preencha o formulário abaixo para entrar em contato conosco.")
+        else:
+            messages.error = (request, "Por favor, preencha o formulário abaixo para entrar em contato conosco.")
     if request.user.is_authenticated:
         user = request.user
     else:
@@ -41,7 +44,7 @@ def contactus(request):
     context = {
         'form': form,
         'title': 'Techno Mania - Contact Us',
-        'message': 'Utilize o formulário abaixo para entrar em contato conosco',
+        'msg_title': 'Utilize o formulário abaixo para entrar em contato conosco',
         'description': 'We are at your disposal to answer your questions and better serve you.',
         'user': user,
         'is_authenticated': request.user.is_authenticated,
@@ -52,7 +55,7 @@ def contactus(request):
 def index(request):
     context = {
         'title': 'Techno Mania - Home',
-        'message': 'Escolha a linha de produtos que mais combina com você',
+        'msg_title': 'Escolha a linha de produtos que mais combina com você',
         'description': '',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
         'user': request.user,
@@ -66,7 +69,7 @@ def index(request):
 def item(request):
     context = {
         'title': 'Techno Mania - Item',
-        'message': 'Os melhores produtos para você',
+        'msg_title': 'Os melhores produtos para você',
         'description': 'Explore nossa gama de produtos projetados para melhorar sua experiência tecnológica.',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }
@@ -76,7 +79,7 @@ def item(request):
 def custom_404_view(request, exception):
     context = {
         'title': 'Page Not Found',
-        'message': 'The page you are looking for does not exist.',
+        'msg_title': 'The page you are looking for does not exist.',
         'description': '',
         'keywords': '',
     }
@@ -85,7 +88,7 @@ def custom_404_view(request, exception):
 def custom_500_view(request):
     context = {
         'title': 'Server Error',
-        'message': 'An unexpected error occurred.',
+        'msg_title': 'An unexpected error occurred.',
         'description': '',
         'keywords': '',
     }
