@@ -15,16 +15,6 @@ def about(request):
     }
     return render(request, 'about.html', context)
 
-def contact(request):
-    context = {
-        'title': 'Techno Mania - Contact',
-        'msg_title': 'Register prospective customers and suppliers',
-        'user': request.user,
-        'is_authenticated': request.user.is_authenticated,
-        'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
-    }
-    return render(request, 'contact.html', context)
-
 def contactus(request):
     form = ContactUsForm(request.POST or None)
     if request.method == 'POST':
@@ -65,15 +55,6 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-# sale views
-def item(request):
-    context = {
-        'title': 'Techno Mania - Item',
-        'msg_title': 'Os melhores produtos para você',
-        'description': 'Explore nossa gama de produtos projetados para melhorar sua experiência tecnológica.',
-        'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
-    }
-    return render(request, 'item.html', context)
 
 # error handlers
 def custom_404_view(request, exception):

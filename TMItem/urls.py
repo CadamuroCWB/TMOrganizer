@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .views import contact
+from .views import item
 from django.urls import path, include
 
 urlpatterns = [
-    path('contact/', contact, name='contact'),
+    path('item/', item, name='item'),
 ]

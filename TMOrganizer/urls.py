@@ -21,4 +21,5 @@ urlpatterns = [
     path('controlpanel/', admin.site.urls),
     path('', include('TMCore.urls')),
     path('sale/', include('TMSale.urls')),
+    path('item/', include('TMItem.urls')),
 ]
