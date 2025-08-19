@@ -1,11 +1,10 @@
 from django.db import models
-from TMCore.models import tm_unit_measurement
+from django.db.models import signals # signals
+from django.template.defaultfilters import slugify # url
 
 from stdimage.models import StdImageField # images
 
-from django.db.models import signals # signals
-
-from django.template.defaultfilters import slugify # url
+from TMCore.models import tm_unit_measurement # unit of measurement
 
 class base(models.Model):
     current_status = models.BooleanField(default=True)
@@ -14,10 +13,15 @@ class base(models.Model):
     class Meta:
         abstract = True
 
-class tm_risk_number(base):
+class tm_type(base):
     code = models.CharField('Codigo', max_length=20, unique=True)
     name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
+    complement = models.TextField('Complemento', blank=True, null=True)
+    value = models.DecimalField('Valor', max_digits=10, decimal_places=4, null=True, blank=False)
+    class Meta:
+        abstract = True
+
+class tm_risk_number(tm_type):
     class Meta:
         verbose_name = 'Numero de Risco'
         verbose_name_plural = 'Numeros de Risco'
@@ -25,10 +29,7 @@ class tm_risk_number(base):
     def __str__(self):
         return self.name
 
-class tm_risk_classification(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
+class tm_risk_classification(tm_type):
     class Meta:
         verbose_name = 'Classificacao de Risco'
         verbose_name_plural = 'Classificacoes de Risco'
@@ -36,10 +37,7 @@ class tm_risk_classification(base):
     def __str__(self):
         return self.name
 
-class tm_category(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
+class tm_category(tm_type):
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
@@ -47,10 +45,15 @@ class tm_category(base):
         def __str__(self):
             return self.name
         
-class tm_cst(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
+class tm_origin(tm_type): # Origem do produto - Tabela A - ORIGEM DO PRODUTO 
+    class Meta:
+        verbose_name = 'Origem'
+        verbose_name_plural = 'Origens'
+        ordering = ['name'] 
+    def __str__(self):
+        return self.name
+
+class tm_cst(tm_type): # Código de Situação Tributária - Tabela B - TRIBUTAÇÃO PELO ICMS
     class Meta:
         verbose_name = 'CST'
         verbose_name_plural = 'CSTs'
@@ -58,25 +61,11 @@ class tm_cst(base):
     def __str__(self):
         return self.name
 
-class tm_onu(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
+class tm_onu(tm_type):
     class Meta:
         verbose_name = 'ONU'
         verbose_name_plural = 'ONUs'
         ordering = ['name']
-    def __str__(self):
-        return self.name
-
-class tm_origin(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField('Descrição', max_length=50, unique=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4)
-    class Meta:
-        verbose_name = 'Origem'
-        verbose_name_plural = 'Origens'
-        ordering = ['name'] 
     def __str__(self):
         return self.name
 
@@ -122,4 +111,3 @@ def item_pre_save(signal, instance, sender, **kwargs):
         instance.slug = slugify(instance.code)
         
 signals.pre_save.connect(item_pre_save, sender=item)
-
