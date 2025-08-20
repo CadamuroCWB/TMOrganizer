@@ -7,9 +7,9 @@ from stdimage.models import StdImageField # images
 from TMCore.models import tm_unit_measurement # unit of measurement
 
 class base(models.Model):
-    current_status = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    current_status = models.BooleanField('Situação', default=True)
+    created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
+    updated_at = models.DateTimeField('Data alteração', auto_now=True)
     class Meta:
         abstract = True
 
@@ -17,7 +17,7 @@ class tm_type(base):
     code = models.CharField('Codigo', max_length=20, unique=True)
     name = models.CharField('Descrição', max_length=50, unique=True)
     complement = models.TextField('Complemento', blank=True, null=True)
-    value = models.DecimalField('Valor', max_digits=10, decimal_places=4, null=True, blank=False)
+    value = models.DecimalField('Valor', max_digits=10, decimal_places=4, null=True)
     class Meta:
         abstract = True
 
