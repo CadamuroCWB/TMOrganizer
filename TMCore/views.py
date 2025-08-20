@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import ContactUsForm
+from .forms import ContactUsForm, CompanyForm
 
 # main views
 def about(request):
@@ -14,6 +14,32 @@ def about(request):
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }
     return render(request, 'about.html', context)
+
+@login_required
+def company(request):
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Company profile updated successfully.")
+        else:
+            messages.error(request, "Please correct the errors below.")
+    form = CompanyForm()
+    if request.user.is_authenticated:
+        user = request.user
+        user_auth = request.user.is_authenticated
+    else:
+        user = None
+    context = {
+        'form': form,
+        'title': 'Techno Mania - Company Profile',
+        'msg_title': 'Atualize as informações do perfil da sua empresa',
+        'description': 'Manage and update your company profile details here.',
+        'keywords': 'company profile, business information, update profile',
+        'user': user,
+        'is_authenticated': user_auth,
+    }
+    return render(request, 'company.html', context)
 
 def contactus(request):
     form = ContactUsForm(request.POST or None)
@@ -27,6 +53,7 @@ def contactus(request):
             #form = ContactUsForm()  # Reset the form after submission
         else:
             messages.error = (request, "Por favor, preencha o formulário abaixo para entrar em contato conosco.")
+    form = ContactUsForm()
     if request.user.is_authenticated:
         user = request.user
     else:

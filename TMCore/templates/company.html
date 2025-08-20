@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block meta_keywords %}
+    contact, support, inquiries, Techno Mania
+{% endblock %}
+
+{% block content %}
+    {% load bootstrap5 %}
+    <div class="container">
+        <form method="post" action="{% url 'company' %}" class="form" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-outline-success">Gravar</button>
+            {% endbuttons %}
+        </form>
+    </div>
+    {% bootstrap_javascript %}
+{% endblock %}

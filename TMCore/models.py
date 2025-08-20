@@ -1,5 +1,7 @@
 from django.db import models
 
+from stdimage.models import StdImageField  # images
+
 class base(models.Model):
     current_status = models.BooleanField('Situação', default=True)
     created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
@@ -40,7 +42,7 @@ class company(base):
     alias = models.CharField('Fantasia', max_length=50, unique=True)
     phone = models.CharField('Telefone', max_length=15, blank=True, null=True)
     email = models.EmailField('e-mail', blank=True, null=True)
-    logo = models.ImageField('Logo', upload_to='company_logos/', blank=True, null=True)
+    logo = StdImageField('Logo', upload_to='company_logos/', blank=True, null=True, variations={'thumbnail': {'width': 200, 'height': 200}})
     homedirectory = models.CharField('Diretório base', max_length=255, blank=True, null=True)
     class Meta:
         verbose_name = 'Empresa'

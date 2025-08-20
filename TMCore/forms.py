@@ -1,6 +1,22 @@
 from django import forms
 from django.core.mail import EmailMessage
 
+from TMCore.models import company  # Assuming company model is in TMCore.models
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = company
+        fields = ['name', 'cnpj', 'alias', 'phone', 'email', 'logo', 'homedirectory']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Razão Social'}),
+            'cnpj': forms.TextInput(attrs={'placeholder': 'CNPJ'}),
+            'alias': forms.TextInput(attrs={'placeholder': 'Nome Fantasia'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Telefone'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'E-mail'}),
+            'logo': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
+            'homedirectory': forms.TextInput(attrs={'placeholder': 'Diretório Base'}),
+        }
+        
 class ContactUsForm(forms.Form):
     name = forms.CharField(
         max_length=60, label=("Nome"))

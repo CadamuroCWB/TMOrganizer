@@ -4,7 +4,7 @@ from .models import tm_currency, tm_unit_measurement, company
 
 @admin.register(tm_currency)
 class tm_currencyAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'SymbolBeforeValue', 'CodeWebServiceBCB_Sale', 'CodeWebServiceBCB_Buy', 'current_status', 'created_at', 'updated_at')
+    list_display = ('code', 'name', 'symbol_before_value', 'codeWeb_service_BCB_sale', 'codeWeb_service_BCB_buy', 'current_status', 'created_at', 'updated_at')
     search_fields = ('code', 'name')
     list_filter = ('current_status',)
     ordering = ('name',)

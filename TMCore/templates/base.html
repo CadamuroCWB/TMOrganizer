@@ -1,8 +1,9 @@
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     {% load static %}
-    {% load bootstrap5 %}
+    {% bootstrap_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
@@ -33,6 +34,9 @@
                             <a class="nav-link" href="{% url 'index' %}">Início</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'company' %}">Empresa</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'contactus' %}">Fale conosco</a>
                         </li>
                         <li class="nav-item">
@@ -58,13 +62,7 @@
             </div>
         </nav>
         <h3>{{msg_title}}</h3>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {% bootstrap_messages %}
     </header>
     <main>
         {% block content %}
