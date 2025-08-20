@@ -24,9 +24,9 @@ class tm_unit_measurement(tm_type):
         return self.name
     
 class tm_currency(tm_type):
-    SymbolBeforeValue = models.CharField(max_length=10, blank=True, null=True)
-    CodeWebServiceBCB_Sale = models.IntegerField(blank=True, null=True)
-    CodeWebServiceBCB_Buy = models.IntegerField(blank=True, null=True)
+    symbol_before_value = models.CharField(max_length=10, blank=True, null=True)
+    codeWeb_service_BCB_sale = models.IntegerField(blank=True, null=True)
+    codeWeb_service_BCB_buy = models.IntegerField(blank=True, null=True)
     class Meta:
         verbose_name = 'Moeda'
         verbose_name_plural = 'Moedas'
