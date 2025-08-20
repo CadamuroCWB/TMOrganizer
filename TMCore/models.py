@@ -7,10 +7,15 @@ class base(models.Model):
     class Meta:
         abstract = True
 
-class tm_unit_measurement(base):
+class tm_type(base):
     code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField(max_length=50, unique=True)
-    value = models.DecimalField(max_digits=10, decimal_places=4)
+    name = models.CharField('Descrição', max_length=50, unique=True)
+    complement = models.TextField('Complemento', blank=True, null=True)
+    value = models.DecimalField('Valor', max_digits=10, decimal_places=4, null=True, blank=False)
+    class Meta:
+        abstract = True
+
+class tm_unit_measurement(tm_type):
     class Meta:
         verbose_name = 'Unidade Medida'
         verbose_name_plural = 'Unidades de Medida'
@@ -18,10 +23,7 @@ class tm_unit_measurement(base):
     def __str__(self):
         return self.name
     
-class tm_currency(base):
-    code = models.CharField('Codigo', max_length=20, unique=True)
-    name = models.CharField(max_length=50, unique=True)
-    value = models.DecimalField(max_digits=10, decimal_places=4)
+class tm_currency(tm_type):
     SymbolBeforeValue = models.CharField(max_length=10, blank=True, null=True)
     CodeWebServiceBCB_Sale = models.IntegerField(blank=True, null=True)
     CodeWebServiceBCB_Buy = models.IntegerField(blank=True, null=True)
