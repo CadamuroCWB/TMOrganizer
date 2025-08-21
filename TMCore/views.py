@@ -1,11 +1,69 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import ContactUsForm, CompanyForm
 
+from .models import Company
+
 # main views
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
+
+# CRUD: List companies
+@login_required
+def company_list(request):
+    companies = Company.objects.all()
+    context = {
+        'companies': companies,
+        'title': 'Lista de Empresas',
+    }
+    return render(request, 'company_list.html', context)
+
+
+# CRUD: Create company
+@login_required
+def company_create(request):
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Empresa criada com sucesso!')
+            return redirect('company_list')
+    else:
+        form = CompanyForm()
+    context = {'form': form, 'title': 'Nova Empresa'}
+    return render(request, 'company_form.html', context)
+
+
+# CRUD: Update company
+@login_required
+def company_update(request, pk):
+    obj = get_object_or_404(Company, pk=pk)
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, request.FILES, instance=obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Empresa atualizada com sucesso!')
+            return redirect('company_list')
+    else:
+        form = CompanyForm(instance=obj)
+    context = {'form': form, 'title': 'Editar Empresa'}
+    return render(request, 'company_form.html', context)
+
+
+# CRUD: Delete company
+@login_required
+def company_delete(request, pk):
+    obj = get_object_or_404(Company, pk=pk)
+    if request.method == 'POST':
+        obj.delete()
+        messages.success(request, 'Empresa excluída com sucesso!')
+        return redirect('company_list')
+    context = {'object': obj, 'title': 'Excluir Empresa'}
+    return render(request, 'company_confirm_delete.html', context)
 def about(request):
     context = {
         'title': 'Techno Mania - About',
@@ -14,32 +72,6 @@ def about(request):
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }
     return render(request, 'about.html', context)
-
-@login_required
-def company(request):
-    if request.method == 'POST':
-        form = CompanyForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Company profile updated successfully.")
-        else:
-            messages.error(request, "Please correct the errors below.")
-    form = CompanyForm()
-    if request.user.is_authenticated:
-        user = request.user
-        user_auth = request.user.is_authenticated
-    else:
-        user = None
-    context = {
-        'form': form,
-        'title': 'Techno Mania - Company Profile',
-        'msg_title': 'Atualize as informações do perfil da sua empresa',
-        'description': 'Manage and update your company profile details here.',
-        'keywords': 'company profile, business information, update profile',
-        'user': user,
-        'is_authenticated': user_auth,
-    }
-    return render(request, 'company.html', context)
 
 def contactus(request):
     form = ContactUsForm(request.POST or None)

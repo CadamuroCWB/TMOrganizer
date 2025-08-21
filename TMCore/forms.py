@@ -1,11 +1,11 @@
 from django import forms
 from django.core.mail import EmailMessage
 
-from TMCore.models import company  # Assuming company model is in TMCore.models
+from TMCore.models import Company  # Usar classe Company
 
 class CompanyForm(forms.ModelForm):
     class Meta:
-        model = company
+        model = Company
         fields = ['name', 'cnpj', 'alias', 'phone', 'email', 'logo', 'homedirectory']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Razão Social'}),
@@ -46,3 +46,4 @@ class ContactUsForm(forms.Form):
         if not cleaned_data.get('email'):
             raise forms.ValidationError("O email é obrigatório.")
         return cleaned_data
+

@@ -36,7 +36,7 @@ class tm_currency(tm_type):
     def __str__(self):
         return self.name
 
-class company(base):
+class Company(base):
     name = models.CharField('Razão social', max_length=100, unique=True)
     cnpj = models.CharField('CNPJ', max_length=14, unique=True)
     alias = models.CharField('Fantasia', max_length=50, unique=True)
@@ -48,5 +48,6 @@ class company(base):
         verbose_name = 'Empresa'
         verbose_name_plural = 'Empresas'
         ordering = ['name']
+        
     def __str__(self):
         return self.name

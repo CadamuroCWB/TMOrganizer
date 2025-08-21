@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import tm_currency, tm_unit_measurement, company
+from .models import tm_currency, tm_unit_measurement, Company
 
 @admin.register(tm_currency)
 class tm_currencyAdmin(admin.ModelAdmin):
@@ -16,7 +16,7 @@ class tm_unit_measurementAdmin(admin.ModelAdmin):
     list_filter = ('current_status',)
     ordering = ('name',)
 
-@admin.register(company)
+@admin.register(Company)
 class companyAdmin(admin.ModelAdmin):
     list_display = ('name', 'cnpj', 'alias', 'phone', 'email', 'current_status', 'created_at', 'updated_at')
     search_fields = ('name', 'cnpj', 'alias')
