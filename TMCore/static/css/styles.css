@@ -27,23 +27,10 @@ body {
     padding: 10px 0;
 }
 
-.contaner{
+.container-tmorganizer {
     background-color: var(--user-color);
     color: var(--user-text-color);
     font-family: var(--user-font-family);
-}
-
-.container-fluid.contaner-tmorganizer {
-    background-color: var(--user-color);
-    color: var(--user-text-color);
-    font-family: var(--user-font-family);
-}
-
-.contaner img {
-    width: 30%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: contain;
 }
 
 .endpage-tmorganizer {

@@ -1,7 +1,20 @@
 from django.db import models
 
+from django.forms import ValidationError
 from stdimage.models import StdImageField  # images
 
+from validate_docbr import CNPJ
+
+# functions
+def validate_cnpj(value):
+    if not is_valid_cnpj(value):
+        raise ValidationError('CNPJ inválido')
+
+def is_valid_cnpj(cnpj):
+    cnpj_validator = CNPJ()
+    return cnpj_validator.validate(cnpj)
+
+# class
 class base(models.Model):
     current_status = models.BooleanField('Situação', default=True)
     created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
@@ -38,7 +51,7 @@ class tm_currency(tm_type):
 
 class Company(base):
     name = models.CharField('Razão social', max_length=100, unique=True)
-    cnpj = models.CharField('CNPJ', max_length=14, unique=True)
+    cnpj = models.CharField('CNPJ', max_length=14, unique=True, validators=[validate_cnpj])
     alias = models.CharField('Fantasia', max_length=50, unique=True)
     phone = models.CharField('Telefone', max_length=15, blank=True, null=True)
     email = models.EmailField('e-mail', blank=True, null=True)
@@ -48,6 +61,6 @@ class Company(base):
         verbose_name = 'Empresa'
         verbose_name_plural = 'Empresas'
         ordering = ['name']
-        
     def __str__(self):
         return self.name
+

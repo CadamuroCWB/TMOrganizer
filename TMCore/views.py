@@ -18,7 +18,7 @@ def company_list(request):
     companies = Company.objects.all()
     context = {
         'companies': companies,
-        'title': 'Lista de Empresas',
+        'title': 'Lista de empresas',
     }
     return render(request, 'company_list.html', context)
 
@@ -50,7 +50,7 @@ def company_update(request, pk):
             return redirect('company_list')
     else:
         form = CompanyForm(instance=obj)
-    context = {'form': form, 'title': 'Editar Empresa'}
+    context = {'form': form, 'title': 'Editar empresa'}
     return render(request, 'company_form.html', context)
 
 
@@ -62,7 +62,7 @@ def company_delete(request, pk):
         obj.delete()
         messages.success(request, 'Empresa excluída com sucesso!')
         return redirect('company_list')
-    context = {'object': obj, 'title': 'Excluir Empresa'}
+    context = {'object': obj, 'title': 'Excluir empresa'}
     return render(request, 'company_confirm_delete.html', context)
 def about(request):
     context = {

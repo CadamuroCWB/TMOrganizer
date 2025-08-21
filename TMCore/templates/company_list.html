@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ title }}</h1>
-<a href="{% url 'company_create' %}" class="btn btn-primary">Nova Empresa</a>
-<table class="table">
-    <thead>
+{% load bootstrap5 %}
+<h3>{{ title }}</h3>
+{% buttons %}
+    <a href="{% url 'company_create' %}" class="btn btn-outline-success">Adicionar uma empresa</a>
+{% endbuttons %}
+<table class="table table-striped">
+    <thead class="table-dark">
         <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>CNPJ</th>
             <th>Alias</th>
             <th>Telefone</th>
-            <th>Email</th>
+            <th>e-mail</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -24,8 +27,10 @@
             <td>{{ c.phone }}</td>
             <td>{{ c.email }}</td>
             <td>
-                <a href="{% url 'company_update' c.id %}" class="btn btn-sm btn-warning">Editar</a>
-                <a href="{% url 'company_delete' c.id %}" class="btn btn-sm btn-danger">Excluir</a>
+            {% buttons %}
+                <a href="{% url 'company_update' c.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                <a href="{% url 'company_delete' c.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+            {% endbuttons %}
             </td>
         </tr>
         {% empty %}
