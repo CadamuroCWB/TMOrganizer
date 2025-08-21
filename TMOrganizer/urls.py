@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('controlpanel/', admin.site.urls),
     path('', include('TMCore.urls')),
     path('sale/', include('TMSale.urls')),
     path('item/', include('TMItem.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
