@@ -11,6 +11,7 @@ from .models import Company
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+# Dolar
 
 # CRUD: List companies
 @login_required
@@ -111,6 +112,7 @@ def index(request):
         'is_authenticated': request.user.is_authenticated,
         'is_superuser': request.user.is_superuser,
         'user_agent': request.headers.get('User-Agent', 'Unknown'),
+        'dolar_value': conversor("USD", "BRL"),
     }
     return render(request, 'index.html', context)
 
