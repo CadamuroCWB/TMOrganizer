@@ -2,7 +2,7 @@
 {% block content %}
     {% load bootstrap5 %}
     {% buttons %}
-        <a href="{% url 'company_create' %}" class="btn btn-outline-success">Adicionar</a>
+        <a href="{% url 'contact_create' %}" class="btn btn-outline-success">Adicionar</a>
     {% endbuttons %}
     <table class="table table-striped">
         <thead class="table-dark">
@@ -26,8 +26,8 @@
                 <td>{{ contact.updated_at }}</td>
                 <td>
                 {% buttons %}
-                        <a href="{% url 'company_update' contact.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
-                        <a href="{% url 'company_delete' contact.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        <a href="{% url 'contact_update' contact.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'contact_delete' contact.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
                 {% endbuttons %}
                 </td>
             </tr>

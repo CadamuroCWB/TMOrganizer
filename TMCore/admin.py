@@ -1,16 +1,16 @@
 from django.contrib import admin
 
-from .models import tm_currency, tm_unit_measurement, Company
+from .models import Currency, UnitMeasurement, Company
 
-@admin.register(tm_currency)
-class tm_currencyAdmin(admin.ModelAdmin):
+@admin.register(Currency)
+class CurrencyAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'symbol_before_value', 'codeWeb_service_BCB_sale', 'codeWeb_service_BCB_buy', 'current_status', 'created_at', 'updated_at')
     search_fields = ('code', 'name')
     list_filter = ('current_status',)
     ordering = ('name',)
 
-@admin.register(tm_unit_measurement)
-class tm_unit_measurementAdmin(admin.ModelAdmin):
+@admin.register(UnitMeasurement)
+class UnitMeasurementAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'complement', 'current_status', 'created_at', 'updated_at')
     search_fields = ('code', 'name')
     list_filter = ('current_status',)

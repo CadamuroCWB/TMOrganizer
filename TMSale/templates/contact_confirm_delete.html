@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load bootstrap5 %}
-<p>Tem certeza que deseja excluir a empresa <strong>{{ object.name }}</strong>?</p>
+<p>Tem certeza que deseja excluir o contato <strong>{{ object.name }}</strong>?</p>
 <form method="post">
     {% csrf_token %}
     {% buttons %}
         <button type="submit" class="btn btn-outline-danger">Sim, excluir</button>
-        <a href="{% url 'company_list' %}" class="btn btn-outline-primary">Cancelar, voltar sem excluir</a>
+        <a href="{% url 'contact_list' %}" class="btn btn-outline-primary">Cancelar, voltar sem excluir</a>
     {% endbuttons %}
 </form>
 {% endblock %}

@@ -20,6 +20,7 @@ def company_list(request):
     context = {
         'companies': companies,
         'title': 'Lista de empresas',
+        'msg_title': 'Cadastrar empresas',
     }
     return render(request, 'company_list.html', context)
 
@@ -35,7 +36,11 @@ def company_create(request):
             return redirect('company_list')
     else:
         form = CompanyForm()
-    context = {'form': form, 'title': 'Nova Empresa'}
+    context = {
+        'form': form, 
+        'title': 'Techno Mania - Adicionar',
+        'msg_title': 'Adicionar nova empresa',
+    }
     return render(request, 'company_form.html', context)
 
 
@@ -51,7 +56,11 @@ def company_update(request, pk):
             return redirect('company_list')
     else:
         form = CompanyForm(instance=obj)
-    context = {'form': form, 'title': 'Editar empresa'}
+    context = {
+        'form': form, 
+        'title': 'Techno Mania - Editar',
+        'msg_title': 'Alterar {{ obj.name }}',
+    }
     return render(request, 'company_form.html', context)
 
 
@@ -63,13 +72,18 @@ def company_delete(request, pk):
         obj.delete()
         messages.success(request, 'Empresa excluída com sucesso!')
         return redirect('company_list')
-    context = {'object': obj, 'title': 'Excluir empresa'}
+    context = {
+        'object': obj, 
+        'title': 'Techno Mania - Excluir',
+        'msg_title': 'Tem certeza de que deseja excluir esta empresa?',
+    }
     return render(request, 'company_confirm_delete.html', context)
+
 def about(request):
     context = {
-        'title': 'Techno Mania - About',
-        'msg_title': 'Solutions for the tech enthusiast. Smart solutions for a tech-savvy world',
-        'description': 'Welcome to Techno Mania, your go-to source for the latest in technology, offering insights and solutions for tech enthusiasts. Explore the latest in technology with Techno Mania.',
+        'title': 'Techno Mania - Sobre',
+        'msg_title': 'Soluções para o entusiasta da tecnologia. Soluções inteligentes para um mundo antenado em tecnologia.',
+        'description': 'Bem-vindo à Techno Mania, sua fonte de referência para o que há de mais recente em tecnologia, oferecendo insights e soluções para entusiastas da tecnologia. Explore o que há de mais recente em tecnologia com a Techno Mania.',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
     }
     return render(request, 'about.html', context)
@@ -104,7 +118,7 @@ def contactus(request):
 
 def index(request):
     context = {
-        'title': 'Techno Mania - Home',
+        'title': '',
         'msg_title': 'Escolha a linha de produtos que mais combina com você',
         'description': '',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
@@ -112,7 +126,6 @@ def index(request):
         'is_authenticated': request.user.is_authenticated,
         'is_superuser': request.user.is_superuser,
         'user_agent': request.headers.get('User-Agent', 'Unknown'),
-        'dolar_value': conversor("USD", "BRL"),
     }
     return render(request, 'index.html', context)
 

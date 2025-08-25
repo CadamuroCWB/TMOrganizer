@@ -1,6 +1,6 @@
 from django.db import models
-
 from django.forms import ValidationError
+
 from stdimage.models import StdImageField  # images
 
 from validate_docbr import CNPJ
@@ -15,14 +15,14 @@ def is_valid_cnpj(cnpj):
     return cnpj_validator.validate(cnpj)
 
 # class
-class base(models.Model):
+class Base(models.Model):
     current_status = models.BooleanField('Situação', default=True)
     created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
     updated_at = models.DateTimeField('Data alteração', auto_now=True)
     class Meta:
         abstract = True
 
-class tm_type(base):
+class Type(Base):
     code = models.CharField('Codigo', max_length=20, unique=True)
     name = models.CharField('Descrição', max_length=50, unique=True)
     complement = models.TextField('Complemento', blank=True, null=True)
@@ -30,15 +30,15 @@ class tm_type(base):
     class Meta:
         abstract = True
 
-class tm_unit_measurement(tm_type):
+class UnitMeasurement(Type):
     class Meta:
         verbose_name = 'Unidade Medida'
         verbose_name_plural = 'Unidades de Medida'
         ordering = ['name']
     def __str__(self):
         return self.name
-    
-class tm_currency(tm_type):
+
+class Currency(Type):
     symbol_before_value = models.CharField('Simbolo', max_length=10, blank=True, null=True)
     codeWeb_service_BCB_sale = models.IntegerField('Código BCB - venda', blank=True, null=True)
     codeWeb_service_BCB_buy = models.IntegerField('Código BCB - compra', blank=True, null=True)
@@ -49,7 +49,7 @@ class tm_currency(tm_type):
     def __str__(self):
         return self.name
 
-class Company(base):
+class Company(Base):
     name = models.CharField('Razão social', max_length=100, unique=True)
     cnpj = models.CharField('CNPJ', max_length=14, unique=True, validators=[validate_cnpj])
     alias = models.CharField('Fantasia', max_length=50, unique=True)
