@@ -14,6 +14,10 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light master_menu">
             <div class="container-fluid container-tmorganizer">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/TMOrganizer.png' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
                     TMOrganizer
@@ -23,10 +27,6 @@
                 {% elif user.is_authenticated %}
                     <a class="navbar-brand" href="{% url 'userlogin' %}">- Olá {{ user.username }}</a>
                 {% endif %}
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -51,14 +51,13 @@
                 </div>
             </div>
         </nav>
-        <h3>{{msg_title}}</h3>
         {% bootstrap_messages %}
     </header>
 
     <div class="d-flex">
         {% if user.is_authenticated %}
-        <nav class="flex-column p-3" style="min-width:200px; min-height:100vh;">
-            <ul class="nav nav-pills flex-column">
+        <nav class="flex-column p-3 container-tmorganizer " style="min-width:200px; min-height:100vh;">
+            <ul class="nav-pills flex-column ">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact_list' %}">Contato</a>
                 </li>
@@ -75,8 +74,10 @@
             </ul>
         </nav>
         {% endif %}
-        <div class="flex-fill">
-            {% block content %}{% endblock %}
+        <div class="container-fluid">
+            <h3>{{msg_title}}</h3>
+            {% block content %}
+            {% endblock %}
         </div>
     </div>
 

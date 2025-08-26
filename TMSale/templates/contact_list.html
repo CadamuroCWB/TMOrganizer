@@ -7,12 +7,13 @@
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Apelido</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -20,14 +21,14 @@
             <tr>
                 <td>{{ contact.id }}</td>
                 <td>{{ contact.name }}</td>
+                <td>{{ contact.cpf }}</td>
+                <td>{{ contact.alias }}</td>
+                <td>{{ contact.phone }}</td>
                 <td>{{ contact.email }}</td>
-                <td>{{ contact.status }}</td>
-                <td>{{ contact.created_at }}</td>
-                <td>{{ contact.updated_at }}</td>
                 <td>
                 {% buttons %}
-                        <a href="{% url 'contact_update' contact.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
-                        <a href="{% url 'contact_delete' contact.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        <a href="{% url 'contact_form' contact.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'contact_confirm_delete' contact.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
                 {% endbuttons %}
                 </td>
             </tr>

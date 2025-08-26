@@ -5,8 +5,8 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-        <button type="submit" class="btn btn-outline-primary">Alterar</button>
-        <a href="{% url 'contact_list' %}" class="btn btn-outline-danger">Voltar sem alterar</a>
+        <button type="submit" class="btn btn-outline-primary">Incluir/Alterar</button>
+        <a href="{% url 'contact_list' %}" class="btn btn-outline-danger">Voltar sem gravar</a>
     {% endbuttons %}
 </form>
 {% endblock %}
