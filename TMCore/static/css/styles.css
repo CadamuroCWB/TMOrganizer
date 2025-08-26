@@ -1,8 +1,44 @@
 /* TMCore/static/css/styles.css */
 :root {
+    --user-text-color: #535458 ; /* #54443c */
+    --user-bg-color: #c3c3c4; /* #a37566 */ 
+    --user-color: #81646b; /* #bcac94 */ 
+    --user-font-size-header: 24px;
+    --user-font-size-body: 16px;
+    --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
+}
+
+[data-bs-theme="outono"] {
     --user-text-color: #54443c ; /* #54443c */
     --user-bg-color: #d9c1b9; /* #a37566 */ 
     --user-color: #81646b; /* #bcac94 */ 
+    --user-font-size-header: 24px;
+    --user-font-size-body: 16px;
+    --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
+}
+
+[data-bs-theme="inverno"] {
+    --user-text-color: #1f3579 ; /* #54443c */
+    --user-bg-color: #b2bcda; /* #a37566 */ 
+    --user-color: #6b69a4; /* #bcac94 */ 
+    --user-font-size-header: 24px;
+    --user-font-size-body: 16px;
+    --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
+}
+
+[data-bs-theme="primavera"] {
+    --user-text-color: #b02e7d ; /* #54443c */
+    --user-bg-color: #84ac5b; /* #a37566 */ 
+    --user-color: #eaaf52; /* #bcac94 */ 
+    --user-font-size-header: 24px;
+    --user-font-size-body: 16px;
+    --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
+}
+
+[data-bs-theme="verao"] {
+    --user-text-color: #54443c ; /* #54443c */
+    --user-bg-color: #a37566; /* #a37566 */ 
+    --user-color: #bcac94; /* #bcac94 */ 
     --user-font-size-header: 24px;
     --user-font-size-body: 16px;
     --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */

@@ -26,7 +26,7 @@ def contact_create(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Contato criado com sucesso!')
-            return redirect('contact_list.html')
+            return redirect('contact_list')
     else:
         form = ContactForm()
     context = {
@@ -45,7 +45,7 @@ def contact_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Contato atualizado com sucesso!')
-            return redirect('contact_list.html')
+            return redirect('contact_list')
     else:
         form = ContactForm(instance=obj)
     context = {
@@ -62,7 +62,7 @@ def contact_delete(request, pk):
     if request.method == 'POST':
         obj.delete()
         messages.success(request, 'Contato excluído com sucesso!')
-        return redirect('contact_list.html')
+        return redirect('contact_list')
     context = {
         'object': obj,
         'title': 'Techno Mania - Excluir Contato',
