@@ -28,8 +28,8 @@
 
 [data-bs-theme="primavera"] {
     --user-text-color: #b02e7d ; /* #54443c */
-    --user-bg-color: #84ac5b; /* #a37566 */ 
-    --user-color: #eaaf52; /* #bcac94 */ 
+    --user-bg-color: #bcac94; /* #a37566 */ 
+    --user-color: #84ac5b; /* #bcac94 */ 
     --user-font-size-header: 24px;
     --user-font-size-body: 16px;
     --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
@@ -38,7 +38,7 @@
 [data-bs-theme="verao"] {
     --user-text-color: #54443c ; /* #54443c */
     --user-bg-color: #a37566; /* #a37566 */ 
-    --user-color: #bcac94; /* #bcac94 */ 
+    --user-color: #eaaf52; /* #bcac94 */ 
     --user-font-size-header: 24px;
     --user-font-size-body: 16px;
     --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
