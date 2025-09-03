@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import dj_database_url
 
 from pathlib import Path
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-_8wxd=yd%wmkkj^ofgr^sj#t@!^_f(n^+&cn-tgx#&w&og$8#8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Change this in production to your domain or IP address
+ALLOWED_HOSTS = ['Cadamuro.pythonanywhere.com']  # Change this in production to your domain or IP address
 
 
 # Application definition
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,6 +84,10 @@ WSGI_APPLICATION = 'TMOrganizer.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+    'default': dj_database_url.config() # default='postgres://postgres:Cada885$@localhost:5432/TMOrganizer'
+}
+"""
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',  # Use PostgreSQL as the database engine
         'NAME': 'TMOrganizer',  # Name of your database
@@ -92,7 +97,7 @@ DATABASES = {
         'PORT': '5432',  # Database port
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -133,7 +138,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for static files in production
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')  # Directory for user-uploaded media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory for user-uploaded media files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

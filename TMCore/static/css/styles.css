@@ -44,6 +44,10 @@
     --user-font-family: "Gill Sans Extrabold", sans-serif; /* Fonte padrão */
 }
 
+a {
+    color: var(--user-text-color);
+}
+
 h3 {
     text-align: center;
     margin-top: 10px;

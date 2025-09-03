@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load bootstrap5 %}
+    {% load static %}
     {% buttons %}
         <a href="{% url 'company_create' %}" class="btn btn-outline-success">Adicionar</a>
     {% endbuttons %}
@@ -18,23 +19,37 @@
         </thead>
         <tbody>
             {% for c in companies %}
-            <tr>
-                <td>{{ c.id }}</td>
-                <td>{{ c.name }}</td>
-                <td>{{ c.cnpj }}</td>
-                <td>{{ c.alias }}</td>
-                <td>{{ c.phone }}</td>
-                <td>{{ c.email }}</td>
-                <td>
-                {% buttons %}
-                    <a href="{% url 'company_update' c.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
-                    <a href="{% url 'company_delete' c.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
-                {% endbuttons %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="7">Nenhuma empresa cadastrada.</td></tr>
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td><a href="#modal{{ c.id }}" data-bs-toggle="modal">{{ c.name }}</a></td>
+                    <td>{{ c.cnpj }}</td>
+                    <td>{{ c.alias }}</td>
+                    <td>{{ c.phone }}</td>
+                    <td>{{ c.email }}</td>
+                    <td>
+                    {% buttons %}
+                        <a href="{% url 'company_update' c.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'company_delete' c.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                    {% endbuttons %}
+                    </td>
+                </tr>
+                {% empty %}
+                    <tr><td colspan="7">Nenhuma empresa cadastrada.</td></tr>
             {% endfor %}
         </tbody>
     </table>
+    {% for c in companies %}
+        <div class="modal fade" id="modal{{ c.id }}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="dynamic-content">
+                        <img src="{{c.logo.url}}" alt="logotipo da empresa {{ c.name}}" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
