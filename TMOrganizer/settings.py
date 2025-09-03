@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_8wxd=yd%wmkkj^ofgr^sj#t@!^_f(n^+&cn-tgx#&w&og$8#8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['Cadamuro.pythonanywhere.com']  # Change this in production to your domain or IP address
 
