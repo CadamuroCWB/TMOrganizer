@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Currency, UnitMeasurement, Company
+from .models import Currency, UnitMeasurement, Company, Person, Calendar, Event
 
 @admin.register(Currency)
 class CurrencyAdmin(admin.ModelAdmin):
@@ -22,3 +22,24 @@ class companyAdmin(admin.ModelAdmin):
     search_fields = ('name', 'cnpj', 'alias')
     list_filter = ('current_status',)
     ordering = ('name',)
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('name', 'alias', 'email', 'phone', 'current_status', 'created_at', 'updated_at')
+    search_fields = ('name', 'alias', 'email')
+    list_filter = ('current_status',)
+    ordering = ('name',)
+
+@admin.register(Calendar)
+class CalendarAdmin(admin.ModelAdmin):
+    list_display = ('date', 'is_working_day', 'company')
+    search_fields = ('date',)
+    list_filter = ('is_working_day', 'company')
+    ordering = ('date',)
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start_datetime', 'end_datetime', 'company')
+    list_filter = ('company', 'start_datetime')
+    search_fields = ('title', 'description')
+

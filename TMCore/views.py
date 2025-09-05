@@ -3,13 +3,16 @@ from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import ContactUsForm, CompanyForm
-
-from .models import Company
-
 # main views
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .forms import ContactUsForm, CompanyForm
+from .models import Company, Person, Calendar, Event
+from .serializers import CalendarSerializer, EventSerializer, FullCalendarEventSerializer, PersonSerializer
 
 # Dolar
 
@@ -129,7 +132,6 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-
 # error handlers
 def custom_404_view(request, exception):
     context = {
@@ -148,3 +150,21 @@ def custom_500_view(request):
         'keywords': '',
     }
     return render(request, '500.html', context, status=500)
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+class CalendarViewSet(viewsets.ModelViewSet):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+class FullCalendarEventView(APIView):
+    def get(self, request):
+        events = Event.objects.all()
+        serializer = FullCalendarEventSerializer(events, many=True)
+        return Response(serializer.data)

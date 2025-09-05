@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_8wxd=yd%wmkkj^ofgr^sj#t@!^_f(n^+&cn-tgx#&w&og$8#8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['Cadamuro.pythonanywhere.com']  # Change this in production to your domain or IP address
+ALLOWED_HOSTS = ['*']  # Change this in production to your domain or IP address Cadamuro.pythonanywhere.com
 
 
 # Application definition
@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'bootstrap5',  # For Bootstrap integration
+    'rest_framework',  # For Django REST framework
+    'stdimage',  # For image handling
+
     'TMOrganizer',  # Your main application
     'TMCore',
     'TMSale',  # Sale application
     'TMItem',  # Item application
-    'bootstrap5',  # For Bootstrap integration
-    'stdimage',  # For image handling
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ WSGI_APPLICATION = 'TMOrganizer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': dj_database_url.config() # default='postgres://postgres:Cada885$@localhost:5432/TMOrganizer'
 }
@@ -97,7 +99,6 @@ DATABASES = {
         'PORT': '5432',  # Database port
     }
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
