@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.forms import ValidationError
 
@@ -21,8 +23,17 @@ def clean(self):
         raise ValidationError("Não é possível criar eventos em dias não úteis.")
 
 # class
+class kindStatus(models.IntegerChoices):
+    ACTIVE = 1, 'Ativo'
+    INACTIVE = 0, 'Inativo'
+
+    class Meta:
+        verbose_name = 'Status'
+        verbose_name_plural = 'Status'
+    
+
 class Base(models.Model):
-    current_status = models.BooleanField('Situação', default=True)
+    current_status = models.IntegerField('Situação', default=kindStatus.ACTIVE, choices=kindStatus.choices)
     created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
     updated_at = models.DateTimeField('Data alteração', auto_now=True)
     class Meta:
@@ -182,6 +193,7 @@ class Address(Base):
         return f'{self.street}, {self.number} - {self.city}/{self.state}'
 
 class Person(Base):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField('Nome', max_length=100)
     alias = models.CharField('Nome curto', max_length=50, unique=True)
     email = models.EmailField('E-mail', unique=True)
