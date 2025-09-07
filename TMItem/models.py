@@ -4,14 +4,7 @@ from django.template.defaultfilters import slugify # url
 
 from stdimage.models import StdImageField # images
 
-from TMCore.models import UnitMeasurement # unit of measurement
-
-class Base(models.Model):
-    current_status = models.BooleanField('Situação', default=True)
-    created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
-    updated_at = models.DateTimeField('Data alteração', auto_now=True)
-    class Meta:
-        abstract = True
+from TMCore.models import Base, UnitMeasurement # unit of measurement
 
 class Type(Base):
     code = models.CharField('Codigo', max_length=20, unique=True)

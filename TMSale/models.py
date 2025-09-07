@@ -5,6 +5,8 @@ from stdimage.models import StdImageField  # images
 
 from validate_docbr import CPF
 
+from TMCore.models import Base
+
 # functions
 def validate_cpf(value):
     if not value:
@@ -17,13 +19,6 @@ def is_valid_cpf(cpf):
     return cpf_validator.validate(cpf)
 
 # class
-class Base(models.Model):
-    current_status = models.BooleanField('Situação', default=True)
-    created_at = models.DateTimeField('Data inclusão', auto_now_add=True)
-    updated_at = models.DateTimeField('Data alteração', auto_now=True)
-    class Meta:
-        abstract = True
-
 class Contact(Base):
     name = models.CharField('Nome', max_length=100, unique=True)
     cpf = models.CharField('CPF', max_length=14, unique=True, validators=[validate_cpf], blank=True, null=True)
