@@ -57,8 +57,17 @@ class Country(Type):
     def __str__(self):
         return self.name
 
+class State(Type):
+    abbreviation = models.CharField('Sigla', max_length=2, unique=True)
+    country = models.ForeignKey('Country', verbose_name='País', on_delete=models.PROTECT, blank=True, null=True)
+    class Meta:
+        verbose_name = 'Estado'
+        verbose_name_plural = 'Estados'
+        ordering = ['name']
+    def __str__(self):
+        return self.name
+
 class City(Type):
-    state = models.ForeignKey('State', verbose_name='Estado', on_delete=models.PROTECT, blank=True, null=True)
     ddd_code = models.CharField('DDD', max_length=5, blank=True, null=True)
     state = models.ForeignKey('State', verbose_name='Estado', on_delete=models.PROTECT, blank=True, null=True)
     ibge_code = models.CharField('IBGE', max_length=7, blank=True, null=True)
@@ -72,16 +81,6 @@ class City(Type):
     def __str__(self):
         return self.name
     
-class State(Type):
-    abbreviation = models.CharField('Sigla', max_length=2, unique=True)
-    country = models.ForeignKey('Country', verbose_name='País', on_delete=models.PROTECT, blank=True, null=True)
-    class Meta:
-        verbose_name = 'Estado'
-        verbose_name_plural = 'Estados'
-        ordering = ['name']
-    def __str__(self):
-        return self.name
-
 class Currency(Type):
     symbol_before_value = models.CharField('Simbolo', max_length=10, blank=True, null=True)
     code_Web_service_BCB_sale = models.IntegerField('Código BCB - venda', blank=True, null=True)
@@ -180,8 +179,7 @@ class Address(Base):
     number = models.CharField('Número', max_length=10)
     complement = models.CharField('Complemento', max_length=100, blank=True, null=True)
     neighborhood = models.CharField('Bairro', max_length=100)
-    city = models.CharField('Cidade', max_length=100)
-    state = models.CharField('Estado', max_length=2)
+    city = models.ForeignKey('City', verbose_name='Cidade', on_delete=models.PROTECT)
     zip_code = models.CharField('CEP', max_length=10)
 
     class Meta:
@@ -190,7 +188,7 @@ class Address(Base):
         ordering = ['street', 'number']
 
     def __str__(self):
-        return f'{self.street}, {self.number} - {self.city}/{self.state}'
+        return f'{self.street}, {self.number} - {self.city}/{self.city.state.abbreviation}'
 
 class Person(Base):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -247,10 +245,8 @@ class NaturalPerson(Person):
     class Meta:
         verbose_name = 'Pessoa Física'
         verbose_name_plural = 'Pessoas Físicas'
-        ordering = ['name']
         unique_together = ['cpf', 'rg', 'voter_registration', 'reservist_certificate']
         indexes = [
-            models.Index(fields=['name']),
             models.Index(fields=['cpf']),
             models.Index(fields=['rg']),
             models.Index(fields=['voter_registration']),

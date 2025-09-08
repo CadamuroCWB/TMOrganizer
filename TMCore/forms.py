@@ -6,7 +6,7 @@ from TMCore.models import Company  # Usar classe Company
 class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
-        fields = ['name', 'cnpj', 'alias', 'phone', 'email', 'logo', 'homedirectory']
+        fields = ['name', 'cnpj', 'alias', 'phone', 'email', 'logo', 'home_directory']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Razão Social'}),
             'cnpj': forms.TextInput(attrs={'placeholder': 'CNPJ'}),
@@ -14,7 +14,7 @@ class CompanyForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'placeholder': 'Telefone'}),
             'email': forms.EmailInput(attrs={'placeholder': 'E-mail'}),
             'logo': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
-            'homedirectory': forms.TextInput(attrs={'placeholder': 'Diretório Base'}),
+            'home_directory': forms.TextInput(attrs={'placeholder': 'Diretório Base'}),
         }
         
 class ContactUsForm(forms.Form):

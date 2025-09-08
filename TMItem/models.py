@@ -35,8 +35,8 @@ class Category(Type):
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
         ordering = ['name']
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 class Origin(Type): # Origem do produto - Tabela A - ORIGEM DO PRODUTO
     class Meta:
@@ -68,13 +68,13 @@ class Item(Base):
 #    ncm = models.CharField(max_length=10, blank=True, null=True)
     ncm_excess = models.BooleanField('NCM Exceção', default=False)
 #    cest = models.CharField(max_length=10, blank=True, null=True)
-    unit_measurement = models.ForeignKey(UnitMeasurement, on_delete=models.CASCADE, blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
-    cst = models.ForeignKey(CST, on_delete=models.CASCADE, blank=True, null=True)
-    onu = models.ForeignKey(ONU, on_delete=models.CASCADE, blank=True, null=True)
-    origin = models.ForeignKey(Origin, on_delete=models.CASCADE, blank=True, null=True)
-    risk_number = models.ForeignKey(RiskNumber, on_delete=models.CASCADE, blank=True, null=True)
-    risk_classification = models.ForeignKey(RiskClassification, on_delete=models.CASCADE, blank=True, null=True)
+    unit_measurement = models.ForeignKey(UnitMeasurement, on_delete=models.SET_NULL, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    cst = models.ForeignKey(CST, on_delete=models.SET_NULL, blank=True, null=True)
+    onu = models.ForeignKey(ONU, on_delete=models.SET_NULL, blank=True, null=True)
+    origin = models.ForeignKey(Origin, on_delete=models.SET_NULL, blank=True, null=True)
+    risk_number = models.ForeignKey(RiskNumber, on_delete=models.SET_NULL, blank=True, null=True)
+    risk_classification = models.ForeignKey(RiskClassification, on_delete=models.SET_NULL, blank=True, null=True)
     net_weight = models.DecimalField('Peso liquido', max_digits=10, decimal_places=2, blank=True, null=True)
     gross_weight = models.DecimalField('Peso bruto', max_digits=10, decimal_places=2, blank=True, null=True)
     number_expiration_days = models.IntegerField('Qtde dias validade', default=0)
