@@ -81,6 +81,31 @@ class City(Type):
     def __str__(self):
         return self.name
     
+class AddressType(Type):
+    class Meta:
+        verbose_name = 'Tipo de Endereço'
+        verbose_name_plural = 'Tipos de Endereço'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+class Address(Base):
+    street = models.CharField('Rua', max_length=100)
+    number = models.CharField('Número', max_length=10)
+    complement = models.CharField('Complemento', max_length=100, blank=True, null=True)
+    neighborhood = models.CharField('Bairro', max_length=100)
+    city = models.ForeignKey('City', verbose_name='Cidade', on_delete=models.PROTECT)
+    zip_code = models.CharField('CEP', max_length=10)
+
+    class Meta:
+        verbose_name = 'Endereço'
+        verbose_name_plural = 'Endereços'
+        ordering = ['street', 'number']
+
+    def __str__(self):
+        return f'{self.street}, {self.number} - {self.city}/{self.city.state.abbreviation}'
+
 class Currency(Type):
     symbol_before_value = models.CharField('Simbolo', max_length=10, blank=True, null=True)
     code_Web_service_BCB_sale = models.IntegerField('Código BCB - venda', blank=True, null=True)
@@ -114,15 +139,6 @@ class PhoneType(Type):
     class Meta:
         verbose_name = 'Tipo de Telefone'
         verbose_name_plural = 'Tipos de Telefone'
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name
-
-class AddressType(Type):
-    class Meta:
-        verbose_name = 'Tipo de Endereço'
-        verbose_name_plural = 'Tipos de Endereço'
         ordering = ['name']
 
     def __str__(self):
@@ -173,22 +189,6 @@ class Event(Base):
 
     def __str__(self):
         return f'{self.title} ({self.start_datetime:%d/%m/%Y %H:%M})'
-
-class Address(Base):
-    street = models.CharField('Rua', max_length=100)
-    number = models.CharField('Número', max_length=10)
-    complement = models.CharField('Complemento', max_length=100, blank=True, null=True)
-    neighborhood = models.CharField('Bairro', max_length=100)
-    city = models.ForeignKey('City', verbose_name='Cidade', on_delete=models.PROTECT)
-    zip_code = models.CharField('CEP', max_length=10)
-
-    class Meta:
-        verbose_name = 'Endereço'
-        verbose_name_plural = 'Endereços'
-        ordering = ['street', 'number']
-
-    def __str__(self):
-        return f'{self.street}, {self.number} - {self.city}/{self.city.state.abbreviation}'
 
 class Person(Base):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
