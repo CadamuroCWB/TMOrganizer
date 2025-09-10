@@ -1,0 +1,8 @@
+html {
+    height: 100%;
+}
+
+.not-found-page {
+      background-image: url(https://cdn.dribbble.com/userupload/21656650/file/original-0132fb93a9127cae05ca25e86b2c3b02.gif);
+      background-size: cover;
+}

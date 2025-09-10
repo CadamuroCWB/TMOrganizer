@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="7">
+                    <div class="btn-group float-end">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <span>Hoje</span>
+                        </button>
+                    </div>
+                </th>
+                <th colspan="7">
+                    <div class="btn-group float-start">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                            </svg>
+                            <span class="visually-hidden">Button</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary">
+                            <span>{{ mes_atual }}</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary">
+                            <span>{{ ano_atual }}</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
+                            <span class="visually-hidden">Button</span>
+                        </button>
+                    </div>
+                </th>
+                <th colspan="7">
+                    <div class="btn-group float-end">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <span>Dia</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary">
+                            <span>Semana</span>
+                        </button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table table-bordered calendar-table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Dom - {{ dom_atual }}</th>
+                <th>Seg - {{ seg_atual }}</th>
+                <th>Ter - {{ ter_atual }}</th>
+                <th>Qua - {{ qua_atual }}</th>
+                <th>Qui - {{ qui_atual }}</th>
+                <th>Sex - {{ sex_atual }}</th>
+                <th>Sáb - {{ sab_atual }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for semana in calendario %}
+                <tr>
+                    {% for dia, contador in semana %}
+                        <td class="{% if dia == 0 %}preenchimento{% else %}dia-calendario{% endif %}">
+                            {% if dia != 0 %}
+                                {{ dia }}
+                                {% for evento in eventos_por_dia %} {# Supondo que eventos_por_dia é um dicionário de eventos por dia #}
+                                    {% if evento.data.day == dia %}
+                                        <div class="evento">{{ evento.titulo }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

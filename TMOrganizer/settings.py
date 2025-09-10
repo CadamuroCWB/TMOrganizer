@@ -32,7 +32,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Cadamuro.pythonanywhere.com.']  # Change this in production to your domain or IP address Cadamuro.pythonanywhere.com
+ALLOWED_HOSTS = ['*']  # Change this in production to your domain or IP address Cadamuro.pythonanywhere.com
 
 
 # Application definition

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from .views import about, contactus, index, custom_404_view, custom_500_view, company_list, company_create, company_update, company_delete
+from .views import about, calendar, contactus, custom_404_view, custom_500_view, company_list, company_create, company_update, company_delete, index
 from django.urls import path, include
 
 router = DefaultRouter()
@@ -11,7 +11,9 @@ urlpatterns = [
     path('404/', custom_404_view, name='custom_404'),
     path('500/', custom_500_view, name='custom_500'),
     path('about/', about, name='about'),
+    path('account/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
+    path('calendar/', calendar, name='calendar'),   
     # CRUD company
     path('companies/', company_list, name='company_list'),
     path('companies/create/', company_create, name='company_create'),
@@ -19,5 +21,4 @@ urlpatterns = [
     path('companies/<int:pk>/delete/', company_delete, name='company_delete'),
     # end CRUD company
     path('contactus/', contactus, name='contactus'),
-    path('account/', include('django.contrib.auth.urls')),
 ]

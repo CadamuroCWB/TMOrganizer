@@ -81,6 +81,17 @@ def company_delete(request, pk):
     }
     return render(request, 'company_confirm_delete.html', context)
 
+@login_required
+def calendar(request):
+    context = {
+        'title': 'Techno Mania - Calendário',
+        'msg_title': 'Agendamentos',
+        'description': 'Faça seus agendamentos aqui.',
+        'keywords': 'calendário, eventos, datas importantes',
+    }
+    return render(request, 'calendar.html', context)
+
+
 def about(request):
     context = {
         'title': 'Techno Mania - Sobre',
@@ -139,7 +150,7 @@ def custom_404_view(request, exception):
         'description': '',
         'keywords': '',
     }
-    return render(request, '404.html', context, status=404)
+    return render(request, '404', context, status=404)
 
 def custom_500_view(request):
     context = {

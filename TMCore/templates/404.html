@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'TMCore/css/404.css' %}">
+    <script src="{% static 'TMCore/js/404.js' %}" defer></script>
+    <div class="center not-found-page">
+        <h3>404 - Página Não Encontrada</h3>
+        <img src="{% static 'TMCore/images/404_page_not_found.png' %}" alt="Imagem de erro 404" width="300" height="300">
+        <br>
+        <h3>Ops! Parece que algo errado não está certo. <br>Volte para a página inicial se você ousar!</h3>
+    </div>
+{% endblock %}
