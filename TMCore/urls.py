@@ -1,19 +1,24 @@
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from .views import about, calendar, contactus, custom_404_view, custom_500_view, company_list, company_create, company_update, company_delete, index
+from .views import IndexView, about
+from .views import calendar, contactus
+from .views import custom_404_view, custom_500_view
+from .views import company_list, company_create, company_update, company_delete, opening_hours
+
 from django.urls import path, include
 
 router = DefaultRouter()
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', IndexView.as_view(), name='index'),
     path('404/', custom_404_view, name='custom_404'),
     path('500/', custom_500_view, name='custom_500'),
     path('about/', about, name='about'),
     path('account/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
     path('calendar/', calendar, name='calendar'),   
+    path('opening-hours/', opening_hours, name='opening_hours'),
     # CRUD company
     path('companies/', company_list, name='company_list'),
     path('companies/create/', company_create, name='company_create'),

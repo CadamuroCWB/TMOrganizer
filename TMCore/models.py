@@ -144,6 +144,7 @@ class PhoneType(Type):
     def __str__(self):
         return self.name
 
+# Calendar and Events
 class Calendar(Base):
     company = models.ForeignKey('Company', verbose_name='Empresa', on_delete=models.PROTECT, blank=True, null=True)
     date = models.DateField('Data', unique=True)
@@ -189,6 +190,28 @@ class Event(Base):
 
     def __str__(self):
         return f'{self.title} ({self.start_datetime:%d/%m/%Y %H:%M})'
+
+class OpeningHours(Base):
+    company = models.ForeignKey('Company', verbose_name='Empresa', on_delete=models.PROTECT, blank=True, null=True)
+    day_of_week = models.IntegerField('Dia da semana', choices=[
+        (0, 'Domingo'),
+        (1, 'Segunda-feira'),
+        (2, 'Terça-feira'),
+        (3, 'Quarta-feira'),
+        (4, 'Quinta-feira'),
+        (5, 'Sexta-feira'),
+        (6, 'Sábado'),
+    ])
+    open_time = models.TimeField('Hora de abertura')
+    close_time = models.TimeField('Hora de fechamento')
+
+    class Meta:
+        verbose_name = 'Horário de Funcionamento'
+        verbose_name_plural = 'Horários de Funcionamento'
+        ordering = ['company', 'day_of_week']
+
+    def __str__(self):
+        return f'{self.get_day_of_week_display()}: {self.open_time} - {self.close_time}'
 
 class Person(Base):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

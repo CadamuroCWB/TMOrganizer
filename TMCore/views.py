@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
@@ -91,7 +92,17 @@ def calendar(request):
     }
     return render(request, 'calendar.html', context)
 
+@login_required
+def opening_hours(request):
+    context = {
+        'title': 'Techno Mania - Horário de Funcionamento',
+        'msg_title': 'Horários de Funcionamento',
+        'description': 'Gerencie os horários de funcionamento da sua empresa.',
+        'keywords': 'horário de funcionamento, empresa, agendamento',
+    }
+    return render(request, 'opening_hours.html', context)
 
+# public views
 def about(request):
     context = {
         'title': 'Techno Mania - Sobre',
@@ -129,18 +140,18 @@ def contactus(request):
     }
     return render(request, 'contactus.html', context)
 
-def index(request):
-    context = {
-        'title': '',
-        'msg_title': 'Escolha a linha de produtos que mais combina com você',
-        'description': '',
-        'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
-        'user': request.user,
-        'is_authenticated': request.user.is_authenticated,
-        'is_superuser': request.user.is_superuser,
-        'user_agent': request.headers.get('User-Agent', 'Unknown'),
-    }
-    return render(request, 'index.html', context)
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'title': '',
+            'msg_title': 'Escolha a linha de produtos que mais combina com você',
+            'description': '',
+            'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+        })
+        return context  
 
 # error handlers
 def custom_404_view(request, exception):

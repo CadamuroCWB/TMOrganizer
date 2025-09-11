@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>Horário de Funcionamento</h3>
+
+    <p>Status atual: <strong>{{ status_loja }}</strong></p>
+    <p>Horário atual: {{ hora_atual }}</p>
+
+    <h2>Detalhes:</h2>
+    <ul>
+        {% for dia, horario in horarios.items %}
+            <li>{{ dia|capfirst }}: {{ horario }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
