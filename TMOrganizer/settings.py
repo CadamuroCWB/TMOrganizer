@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'stdimage',  # For image handling
 
     'TMOrganizer',  # Your main application
-    'TMCore',
+    'TMCore',  # Basics application
     'TMSale',  # Sale application
     'TMItem',  # Item application
 ]
