@@ -8,8 +8,13 @@
 
 {% block page_content %}
 
-<h4 class="page-title"> <i class="mdi mdi-calendar-check title_icon"></i> Calendar</h4>
-
+<p class="mb-4">
+    {% if msg_title %}
+        {{ msg_title }}
+    {% else %}
+        Agendamentos
+    {% endif %}
+</p> 
 <div class="row">
     <div class="col-12">
 
