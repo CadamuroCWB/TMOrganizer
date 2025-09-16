@@ -1,0 +1,20 @@
+.left-column {
+  float: left; 
+  width: 30%; 
+  background-color: #f0f0f0; 
+  padding: 10px; 
+}
+
+.right-column {
+  float: left; 
+  width: 70%;
+  background-color: #e0e0e0;
+  padding: 10px;
+}
+
+/* Adicionar um elemento para limpar o float */
+.container-columns::after {
+  content: "";
+  display: table;
+  clear: both;
+}
