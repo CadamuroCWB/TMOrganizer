@@ -1,3 +1,4 @@
+
     <div class="btn-group mb-3"  style="text-align: left;">
         <button type="button" class="btn btn-outline-secondary">
             <span>Hoje</span>
@@ -5,7 +6,7 @@
     </div>
     <div class="btn-group mb-3" style="text-align: center;">
         <button type="button" class="btn btn-outline-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <svg id="arrowLeft" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16" onclick="afterMonthChange()">
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
             <span class="visually-hidden">Button</span>
@@ -13,15 +14,15 @@
         <button type="button" class="btn btn-outline-secondary">
             <!--<span>Setembro {{ mes_atual }}</span>-->
             <select id="monthSelector" class="form-select form-select-sm" aria-label=".form-select-sm example" style="border: 0; background-color: #c3c3c4;">
-                <option value="01">Janeiro</option>
-                <option value="02">Fevereiro</option>
-                <option value="03">Março</option>
-                <option value="04">Abril</option>
-                <option value="05">Maio</option>
-                <option value="06">Junho</option>
-                <option value="07">Julho</option>
-                <option value="08">Agosto</option>
-                <option value="09">Setembro</option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
                 <option value="10">Outubro</option>
                 <option value="11">Novembro</option>
                 <option value="12">Dezembro</option>
@@ -45,7 +46,7 @@
             </select>
         </button>
         <button type="button mb-3" class="btn btn-outline-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <svg id="arrowRight" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16" onclick="beforeMonthChange()">
                 <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
             </svg>
             <span class="visually-hidden">Button</span>
@@ -59,3 +60,34 @@
             <span>Semana</span>
         </button>
     </div>
+
+    <script>
+        document.getElementById('monthSelector').value = '9'; //'{{ month_now }}';
+        document.getElementById('yearSelector').value = '2025'; //'{{ year_now }}';
+        function afterMonthChange() {
+            let month = document.getElementById('monthSelector').value;
+            let year = document.getElementById('yearSelector').value;
+            if (month == 1) {
+                month = 12;
+                year = year - 1;
+            } else {
+                month = month - 1;
+            }
+            document.getElementById('monthSelector').value = month;
+            document.getElementById('yearSelector').value = year;
+            //window.location.href = '/calendar/' + year + '/' + month;
+        }
+        function beforeMonthChange() {
+            let month = document.getElementById('monthSelector').value;
+            let year = document.getElementById('yearSelector').value;
+            if (month == 12) {
+                month = 1;
+                year = parseInt(year) + 1;
+            } else {
+                month = parseInt(month) + 1;
+            }
+            document.getElementById('monthSelector').value = month;
+            document.getElementById('yearSelector').value = year;
+            //window.location.href = '/calendar/' + year + '/' + month;
+        }
+     </script>

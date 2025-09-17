@@ -17,13 +17,13 @@
                             <h3>Adicionar Evento</h3>
                             <hr>
                             <p>Clique no botão abaixo para acrescentar um evento profissional</p>
-                            <button class="btn btn-sm font-size-16 btn-outline-primary w-100" id="btn-new-event"><i class="mdi mdi-plus-circle-outline"></i> Adicionar Horário Profissional</button>
+                            <button class="btn btn-sm font-size-16 btn-outline-primary w-100" data-bs-target="#modalNewEvent" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> Adicionar Horário Profissional</button>
                             <hr>
                             <p>Clique no botão abaixo para reservar um horário pessoal</p>
-                            <button class="btn btn-sm font-size-16 btn-outline-success w-100" id="btn-new-private-event"><i class="mdi mdi-plus-circle-outline"></i> Adicionar Horário Pessoal</button>
+                            <button class="btn btn-sm font-size-16 btn-outline-success w-100" data-bs-target="#modalNewPrivateEvent" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> Adicionar Horário Pessoal</button>
                             <hr>
                             <p>Clique no botão abaixo para definir horários de funcionamento</p>
-                            <button class="btn btn-sm font-size-16 btn-outline-warning w-100" id="btn-new-working-hours"><i class="mdi mdi-plus-circle-outline"></i> Alterar Horário de Funcionamento</button>
+                            <button class="btn btn-sm font-size-16 btn-outline-warning w-100" data-bs-target="#modalNewWorkingHours" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> Alterar Horário de Funcionamento</button>
                             <hr>
                         </div>
                     </div>
@@ -31,18 +31,19 @@
                         <div class="d-flex justify-content-between">
                             {% include 'calendar_buttom.html' %}
                         </div>
-                        <table class="table table-bordered calendar-table table-striped">
-                            <thead class="table-light text-center">
-                                <tr>
-                                    <th>Dom - 14{{ dom_atual }}</th>
-                                    <th>Seg - 15{{ seg_atual }}</th>
-                                    <th>Ter - 16{{ ter_atual }}</th>
-                                    <th>Qua - 17{{ qua_atual }}</th>
-                                    <th>Qui - 18{{ qui_atual }}</th>
-                                    <th>Sex - 19{{ sex_atual }}</th>
-                                    <th>Sáb - 20{{ sab_atual }}</th>
-                                </tr>
-                            </thead>
+                            <table class="table table-bordered calendar-table table-striped" id="calendarTable">
+                                <thead class="table-light text-center">
+                                    <tr>
+                                        <th>Dom</th>
+                                        <th>Seg</th>
+                                        <th>Ter</th>
+                                        <th>Qua</th>
+                                        <th>Qui</th>
+                                        <th>Sex</th>
+                                        <th>Sáb</th>
+                                    </tr>
+                                </thead>
+                            </table>
                             <tbody>
                                 {% for semana in calendario %}
                                     <tr>
@@ -68,4 +69,116 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalNewEvent" tabindex="-1" aria-labelledby="modalNewEventLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNewEventLabel">Adicionar Evento Profissional</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNewEvent">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Título do Evento</label>
+                            <input type="text" class="form-control" id="eventTitle" name="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDate" class="form-label">Data do Evento</label>
+                            <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Descrição do Evento</label>
+                            <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Fechar sem salvar</button>
+                    <button type="button" class="btn btn-outline-success" id="btnSaveEvent">Salvar alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNewPrivateEvent" tabindex="-1" aria-labelledby="modalNewPrivateEventLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNewPrivateEventLabel">Adicionar Evento Particular</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNewEvent">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Título do Evento</label>
+                            <input type="text" class="form-control" id="eventTitle" name="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDate" class="form-label">Data do Evento</label>
+                            <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Descrição do Evento</label>
+                            <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Fechar sem salvar</button>
+                    <button type="button" class="btn btn-outline-success" id="btnSaveEvent">Salvar alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNewWorkingHours" tabindex="-1" aria-labelledby="modalNewWorkingHoursLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNewWorkingHoursLabel">Adicionar Horário de Trabalho</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNewWorkingHours">
+                        <div class="mb-3">
+                            <label for="workingHoursStart" class="form-label">Início do Horário de Trabalho</label>
+                            <input type="time" class="form-control" id="workingHoursStart" name="workingHoursStart" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="workingHoursEnd" class="form-label">Fim do Horário de Trabalho</label>
+                            <input type="time" class="form-control" id="workingHoursEnd" name="workingHoursEnd" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Fechar sem salvar</button>
+                    <button type="button" class="btn btn-outline-success" id="btnSaveWorkingHours">Salvar alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load',  function() {
+            const dayNow = new Date();
+            console.log(dayNow);
+            const weekDay = dayNow.getDay();
+            const sunday = dayNow.getDate() - weekDay; // First day is the day of the month - the day of the week
+            var table = document.getElementById("calendarTable");
+            console.log(table);
+            var row = table.getElementsByTagName("tr"); // first row is header
+            console.log(row);
+            var col = row[0].getElementsByTagName("th")[0];
+            console.log(col);
+            row.getElementsByTagName("td")[0].innerHTML = 'Dom - ' + sunday;
+            row.getElementsByTagName("td")[1].innerHTML = 'Seg - ' + (sunday + 1);
+            row.getElementsByTagName("td")[2].innerHTML = 'Ter - ' + (sunday + 2);
+            row.getElementsByTagName("td")[3].innerHTML = 'Qua - ' + (sunday + 3);
+            row.getElementsByTagName("td")[4].innerHTML = 'Qui - ' + (sunday + 4);
+            row.getElementsByTagName("td")[5].innerHTML = 'Sex - ' + (sunday + 5);
+            row.getElementsByTagName("td")[6].innerHTML = 'Sáb - ' + (sunday + 6);
+        });
+     </script>
 {% endblock %}
