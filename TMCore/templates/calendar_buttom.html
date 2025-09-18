@@ -1,7 +1,7 @@
 
     <div class="btn-group mb-3"  style="text-align: left;">
         <button type="button" class="btn btn-outline-secondary">
-            <span>Hoje</span>
+            <span id="todayButton">Hoje</span>
         </button>
     </div>
     <div class="btn-group mb-3" style="text-align: center;">
@@ -10,6 +10,9 @@
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
             <span class="visually-hidden">Button</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary">
+            <span id="weekButton">Semana</span>
         </button>
         <button type="button" class="btn btn-outline-secondary">
             <!--<span>Setembro {{ mes_atual }}</span>-->
@@ -27,7 +30,6 @@
                 <option value="11">Novembro</option>
                 <option value="12">Dezembro</option>
             </select>
-
         </button>
         <button type="button" class="btn btn-outline-secondary">
             <!--<span>2025 {{ ano_atual }}</span>-->
@@ -60,34 +62,3 @@
             <span>Semana</span>
         </button>
     </div>
-
-    <script>
-        document.getElementById('monthSelector').value = '9'; //'{{ month_now }}';
-        document.getElementById('yearSelector').value = '2025'; //'{{ year_now }}';
-        function afterMonthChange() {
-            let month = document.getElementById('monthSelector').value;
-            let year = document.getElementById('yearSelector').value;
-            if (month == 1) {
-                month = 12;
-                year = year - 1;
-            } else {
-                month = month - 1;
-            }
-            document.getElementById('monthSelector').value = month;
-            document.getElementById('yearSelector').value = year;
-            //window.location.href = '/calendar/' + year + '/' + month;
-        }
-        function beforeMonthChange() {
-            let month = document.getElementById('monthSelector').value;
-            let year = document.getElementById('yearSelector').value;
-            if (month == 12) {
-                month = 1;
-                year = parseInt(year) + 1;
-            } else {
-                month = parseInt(month) + 1;
-            }
-            document.getElementById('monthSelector').value = month;
-            document.getElementById('yearSelector').value = year;
-            //window.location.href = '/calendar/' + year + '/' + month;
-        }
-     </script>

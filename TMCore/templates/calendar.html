@@ -34,16 +34,15 @@
                             <table class="table table-bordered calendar-table table-striped" id="calendarTable">
                                 <thead class="table-light text-center">
                                     <tr>
-                                        <th>Dom</th>
-                                        <th>Seg</th>
-                                        <th>Ter</th>
-                                        <th>Qua</th>
-                                        <th>Qui</th>
-                                        <th>Sex</th>
-                                        <th>Sáb</th>
+                                        <th id="sunday">Dom</th>
+                                        <th id="monday">Seg</th>
+                                        <th id="tuesday">Ter</th>
+                                        <th id="wednesday">Qua</th>
+                                        <th id="thursday">Qui</th>
+                                        <th id="friday">Sex</th>
+                                        <th id="saturday">Sáb</th>
                                     </tr>
                                 </thead>
-                            </table>
                             <tbody>
                                 {% for semana in calendario %}
                                     <tr>
@@ -160,25 +159,8 @@
         </div>
     </div>
 
-    <script>
-        window.addEventListener('load',  function() {
-            const dayNow = new Date();
-            console.log(dayNow);
-            const weekDay = dayNow.getDay();
-            const sunday = dayNow.getDate() - weekDay; // First day is the day of the month - the day of the week
-            var table = document.getElementById("calendarTable");
-            console.log(table);
-            var row = table.getElementsByTagName("tr"); // first row is header
-            console.log(row);
-            var col = row[0].getElementsByTagName("th")[0];
-            console.log(col);
-            row.getElementsByTagName("td")[0].innerHTML = 'Dom - ' + sunday;
-            row.getElementsByTagName("td")[1].innerHTML = 'Seg - ' + (sunday + 1);
-            row.getElementsByTagName("td")[2].innerHTML = 'Ter - ' + (sunday + 2);
-            row.getElementsByTagName("td")[3].innerHTML = 'Qua - ' + (sunday + 3);
-            row.getElementsByTagName("td")[4].innerHTML = 'Qui - ' + (sunday + 4);
-            row.getElementsByTagName("td")[5].innerHTML = 'Sex - ' + (sunday + 5);
-            row.getElementsByTagName("td")[6].innerHTML = 'Sáb - ' + (sunday + 6);
-        });
-     </script>
+    {% block extra_js %}
+        <script src="{% static 'js/pages/calendar.js' %}"></script>
+    {% endblock extra_js %}
+
 {% endblock %}

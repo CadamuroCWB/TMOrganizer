@@ -1,5 +1,6 @@
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
+from datetime import date
 
 from .views import IndexView, about
 from .views import calendar, contactus
@@ -17,7 +18,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('account/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
-    path('calendar/', calendar, name='calendar'),   
+    path('calendar/<int:week_number>/', calendar, name='calendar'),
     path('opening-hours/', opening_hours, name='opening_hours'),
     # CRUD company
     path('companies/', company_list, name='company_list'),

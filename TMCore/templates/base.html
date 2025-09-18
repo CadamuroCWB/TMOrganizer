@@ -49,12 +49,6 @@
                                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                                 </li>
                             {% endif %}
-                            <select id="themeSelector" class="form-select form-select-sm container-tmorganizer" aria-label=".form-select-sm example">
-                                    <option value="outono">Outono</option>
-                                    <option value="inverno">Inverno</option>
-                                    <option value="primavera">Primavera</option>
-                                    <option value="verao">Verão</option>
-                            </select>
                         </ul>
                     </div>
                 </div>
@@ -72,7 +66,7 @@
                         <a class="nav-link" href="{% url 'company_list' %}">Empresas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'calendar' %}">Calendário</a>
+                        <a class="nav-link" href="{% url 'calendar' week_number=week_number %}">Calendário</a>
                     </li>
                     <!-- Adicione mais itens conforme necessário -->
                     <li class="nav-item">
@@ -97,17 +91,4 @@
         </footer>
     </div>
 </body>
-{% block extra_js %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeSelector = document.getElementById('themeSelector');
-            const myDiv = document.getElementById('myDiv');
-
-            themeSelector.addEventListener('change', function() {
-                const selectedTheme = this.value;
-                myDiv.setAttribute('data-bs-theme', selectedTheme);
-            });
-        });
-    </script>
-{% endblock %}
 </html>

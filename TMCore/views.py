@@ -1,3 +1,4 @@
+from datetime import date
 from django.views.generic import TemplateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
@@ -83,12 +84,13 @@ def company_delete(request, pk):
     return render(request, 'company_confirm_delete.html', context)
 
 @login_required
-def calendar(request):
+def calendar(request, week_number):
     context = {
         'title': 'Techno Mania - Calendário',
         'msg_title': 'Agendamentos',
         'description': 'Faça seus agendamentos aqui.',
         'keywords': 'calendário, eventos, datas importantes',
+        'week_number': week_number,
     }
     return render(request, 'calendar.html', context)
 
