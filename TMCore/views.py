@@ -85,12 +85,15 @@ def company_delete(request, pk):
 
 @login_required
 def calendar(request, week_number):
+    if not week_number:
+        week_number = date.today().isocalendar()[1]
     context = {
         'title': 'Techno Mania - Calendário',
         'msg_title': 'Agendamentos',
         'description': 'Faça seus agendamentos aqui.',
         'keywords': 'calendário, eventos, datas importantes',
-        'week_number': week_number,
+        'week_number': week_number, 
+        'date': date.today(),
     }
     return render(request, 'calendar.html', context)
 
@@ -152,6 +155,7 @@ class IndexView(TemplateView):
             'msg_title': 'Escolha a linha de produtos que mais combina com você',
             'description': '',
             'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+            'date': date.today(),
         })
         return context  
 
