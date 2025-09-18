@@ -13,45 +13,63 @@ const dayNow = dateNow.getDate();
 const monthNow = dateNow.getMonth() + 1; //January is 0!
 const yearNow = dateNow.getFullYear();
 
-document.getElementById('todayButton').innerHTML = 'Hoje - ' + dayNow + '/' + monthNow + '/' + yearNow;
-document.getElementById('weekButton').innerHTML = 'Semana ' + weekNumber + ' de ' + yearNow;
-document.getElementById('monthSelector').value = monthNow;
-document.getElementById('yearSelector').value = yearNow;
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('todayButton').innerHTML = 'Hoje - ' + dayNow + '/' + monthNow + '/' + yearNow;
+  document.getElementById('weekButton').innerHTML = weekNumber;
+  document.getElementById('monthSelector').value = monthNow;
+  document.getElementById('yearSelector').value = yearNow;
 
-document.getElementById('sunday').innerHTML = 'Dom - ' + sunday + (sunday == dayNow ? ' (Hoje)' : '');
-document.getElementById('monday').innerHTML = 'Seg - ' + (sunday + 1) + (sunday + 1 == dayNow ? ' (Hoje)' : '');
-document.getElementById('tuesday').innerHTML = 'Ter - ' + (sunday + 2) + (sunday + 2 == dayNow ? ' (Hoje)' : '');
-document.getElementById('wednesday').innerHTML = 'Qua - ' + (sunday + 3) + (sunday + 3 == dayNow ? ' (Hoje)' : '');
-document.getElementById('thursday').innerHTML = 'Qui - ' + (sunday + 4) + (sunday + 4 == dayNow ? ' (Hoje)' : '');
-document.getElementById('friday').innerHTML = 'Sex - ' + (sunday + 5) + (sunday + 5 == dayNow ? ' (Hoje)' : '');
-document.getElementById('saturday').innerHTML = 'Sáb - ' + (sunday + 6) + (sunday + 6 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('sunday').innerHTML = 'Dom - ' + sunday + (sunday == dayNow ? ' (Hoje)' : '');
+  document.getElementById('monday').innerHTML = 'Seg - ' + (sunday + 1) + (sunday + 1 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('tuesday').innerHTML = 'Ter - ' + (sunday + 2) + (sunday + 2 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('wednesday').innerHTML = 'Qua - ' + (sunday + 3) + (sunday + 3 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('thursday').innerHTML = 'Qui - ' + (sunday + 4) + (sunday + 4 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('friday').innerHTML = 'Sex - ' + (sunday + 5) + (sunday + 5 == dayNow ? ' (Hoje)' : '');
+  document.getElementById('saturday').innerHTML = 'Sáb - ' + (sunday + 6) + (sunday + 6 == dayNow ? ' (Hoje)' : '');
+});
+
+function addWeek() {
+  let year = document.getElementById('yearSelector').value;
+  console.log(document.getElementById('weekButton').value);
+  let week = document.getElementById('weekButton').value + 1;
+  document.getElementById('weekButton').innerHTML = week;
+  window.location.href = '/calendar/' + parseInt(week) + '/' + parseInt(year);
+}
+
+function decreaseWeek() {
+  let year = document.getElementById('yearSelector').value;
+  console.log(document.getElementById('weekButton').value);
+  let week = document.getElementById('weekButton').value - 1;
+  document.getElementById('weekButton').innerHTML = week;
+  window.location.href = '/calendar/' + parseInt(week) + '/' + parseInt(year);
+}
 
 function afterMonthChange() {
-    let month = document.getElementById('monthSelector').value;
-    let year = document.getElementById('yearSelector').value;
-    if (month == 1) {
-        month = 12;
-        year = year - 1;
-    } else {
-        month = month - 1;
-    }
-    document.getElementById('monthSelector').value = month;
-    document.getElementById('yearSelector').value = year;
-    //window.location.href = '/calendar/' + year + '/' + month;
+  let month = document.getElementById('monthSelector').value;
+  let year = document.getElementById('yearSelector').value;
+  if (month == 1) {
+      month = 12;
+      year = year - 1;
+  } else {
+      month = month - 1;
+  }
+  document.getElementById('monthSelector').value = month;
+  document.getElementById('yearSelector').value = year;
+  window.location.href = '/calendar/' + weekNumber + '/' + year;
 }
 
 function beforeMonthChange() {
-    let month = document.getElementById('monthSelector').value;
-    let year = document.getElementById('yearSelector').value;
-    if (month == 12) {
-        month = 1;
-        year = parseInt(year) + 1;
-    } else {
-        month = parseInt(month) + 1;
-    }
-    document.getElementById('monthSelector').value = month;
-    document.getElementById('yearSelector').value = year;
-    //window.location.href = '/calendar/' + year + '/' + month;
+  let month = document.getElementById('monthSelector').value;
+  let year = document.getElementById('yearSelector').value;
+  if (month == 12) {
+      month = 1;
+      year = parseInt(year) + 1;
+  } else {
+      month = parseInt(month) + 1;
+  }
+  document.getElementById('monthSelector').value = month;
+  document.getElementById('yearSelector').value = year;
+  //window.location.href = '/calendar/' + year + '/' + month;
 }
 
 function getWeekOfYear(date) {

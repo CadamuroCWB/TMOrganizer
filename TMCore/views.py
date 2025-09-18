@@ -25,6 +25,7 @@ def company_list(request):
         'companies': companies,
         'title': 'Lista de empresas',
         'msg_title': 'Cadastrar empresas',
+        'date': date.today(),
     }
     return render(request, 'company_list.html', context)
 
@@ -44,6 +45,7 @@ def company_create(request):
         'form': form, 
         'title': 'Techno Mania - Adicionar',
         'msg_title': 'Adicionar nova empresa',
+        'date': date.today(),
     }
     return render(request, 'company_form.html', context)
 
@@ -64,6 +66,7 @@ def company_update(request, pk):
         'form': form, 
         'title': 'Techno Mania - Editar',
         'msg_title': 'Alterar {{ obj.name }}',
+        'date': date.today(),
     }
     return render(request, 'company_form.html', context)
 
@@ -80,11 +83,14 @@ def company_delete(request, pk):
         'object': obj, 
         'title': 'Techno Mania - Excluir',
         'msg_title': 'Tem certeza de que deseja excluir esta empresa?',
+        'date': date.today(),
     }
     return render(request, 'company_confirm_delete.html', context)
 
 @login_required
-def calendar(request, week_number):
+def calendar(request, week_number=0, year=None):
+    if not year: 
+        year = date.today().year
     if not week_number:
         week_number = date.today().isocalendar()[1]
     context = {
@@ -92,7 +98,8 @@ def calendar(request, week_number):
         'msg_title': 'Agendamentos',
         'description': 'Faça seus agendamentos aqui.',
         'keywords': 'calendário, eventos, datas importantes',
-        'week_number': week_number, 
+        'week_number': week_number,
+        'year': year,
         'date': date.today(),
     }
     return render(request, 'calendar.html', context)
@@ -104,6 +111,7 @@ def opening_hours(request):
         'msg_title': 'Horários de Funcionamento',
         'description': 'Gerencie os horários de funcionamento da sua empresa.',
         'keywords': 'horário de funcionamento, empresa, agendamento',
+        'date': date.today(),
     }
     return render(request, 'opening_hours.html', context)
 
@@ -114,7 +122,7 @@ def about(request):
         'msg_title': 'Soluções para o entusiasta da tecnologia. Soluções inteligentes para um mundo antenado em tecnologia.',
         'description': 'Bem-vindo à Techno Mania, sua fonte de referência para o que há de mais recente em tecnologia, oferecendo insights e soluções para entusiastas da tecnologia. Explore o que há de mais recente em tecnologia com a Techno Mania.',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
-    }
+        'date': date.today(),}
     return render(request, 'about.html', context)
 
 def contactus(request):
@@ -142,6 +150,7 @@ def contactus(request):
         'user': user,
         'is_authenticated': request.user.is_authenticated,
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+        'date': date.today(),
     }
     return render(request, 'contactus.html', context)
 
@@ -166,6 +175,7 @@ def custom_404_view(request, exception):
         'msg_title': 'The page you are looking for does not exist.',
         'description': '',
         'keywords': '',
+        'date': date.today(),
     }
     return render(request, '404', context, status=404)
 
@@ -175,5 +185,6 @@ def custom_500_view(request):
         'msg_title': 'An unexpected error occurred.',
         'description': '',
         'keywords': '',
+        'date': date.today(),
     }
     return render(request, '500.html', context, status=500)

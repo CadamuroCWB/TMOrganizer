@@ -1,3 +1,4 @@
+from datetime import date
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -10,5 +11,6 @@ def item(request):
         'msg_title': 'Os melhores produtos para você',
         'description': 'Explore nossa gama de produtos projetados para melhorar sua experiência tecnológica.',
         'keywords': 'technology, gadgets, software, reviews, ERP, CRM, AI, IoT, BI',
+        'date': date.today(),
     }
     return render(request, 'item.html', context)

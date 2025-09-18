@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
@@ -15,6 +16,7 @@ def contact_list(request):
         'contact_info': contacts,
         'title': 'Techno Mania - Contato',
         'msg_title': 'Cadastrar contatos',
+        'date': date.today(),
     }
     return render(request, 'contact_list.html', context)
 
@@ -33,6 +35,7 @@ def contact_create(request):
         'form': form,
         'title': 'Techno Mania - Novo Contato',
         'msg_title': 'Criar novo contato',
+        'date': date.today(),
     }
     return render(request, 'contact_form.html', context)
 
@@ -52,6 +55,7 @@ def contact_update(request, pk):
         'form': form,
         'title': 'Techno Mania - Editar Contato',
         'msg_title': 'Editar contato',
+        'date': date.today(),
     }
     return render(request, 'contact_form.html', context)
 
@@ -67,5 +71,6 @@ def contact_delete(request, pk):
         'object': obj,
         'title': 'Techno Mania - Excluir Contato',
         'msg_title': 'Tem certeza de que deseja excluir este contato?',
+        'date': date.today(),
     }
     return render(request, 'contact_confirm_delete.html', context)
