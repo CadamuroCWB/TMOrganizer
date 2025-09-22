@@ -9,14 +9,22 @@
             <svg id="arrowLeft" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16" onclick="addWeek()">
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
-            <span class="visually-hidden">Button</span>
+            <span>Semana</span>
         </button>
         <button type="button" class="btn btn-outline-secondary">
             <span id="weekButton">Semana</span>
         </button>
+        <button type="button mb-3" class="btn btn-outline-secondary">
+            <svg id="arrowRight" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16" onclick="decreaseWeek()">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+            </svg>
+            <span class="visually-hidden">Button</span>
+        </button>
+    </div>
+    <div class="btn-group mb-3"  style="text-align: right;">
         <button type="button" class="btn btn-outline-secondary">
             <!--<span>Setembro {{ mes_atual }}</span>-->
-            <select id="monthSelector" class="form-select form-select-sm" aria-label=".form-select-sm example" style="border: 0; background-color: #c3c3c4;">
+            <select id="monthSelector" class="form-select form-select-sm" aria-label=".form-select-sm example" style="border: 0; background-color: #c3c3c4;" onchange="monthChange()">
                 <option value="1">Janeiro</option>
                 <option value="2">Fevereiro</option>
                 <option value="3">Março</option>
@@ -33,7 +41,7 @@
         </button>
         <button type="button" class="btn btn-outline-secondary">
             <!--<span>2025 {{ ano_atual }}</span>-->
-            <select id="yearSelector" class="form-select form-select-sm" aria-label=".form-select-sm example" style="border: 0; background-color: #c3c3c4;">
+            <select id="yearSelector" class="form-select form-select-sm" aria-label=".form-select-sm example" style="border: 0; background-color: #c3c3c4;" onchange="yearChange()">
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
@@ -46,19 +54,5 @@
                 <option value="2029">2029</option>
                 <option value="2030">2030</option>
             </select>
-        </button>
-        <button type="button mb-3" class="btn btn-outline-secondary">
-            <svg id="arrowRight" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16" onclick="decreaseWeek()">
-                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
-            </svg>
-            <span class="visually-hidden">Button</span>
-        </button>
-    </div>
-    <div class="btn-group mb-3"  style="text-align: right;">
-        <button type="button" class="btn btn-outline-secondary">
-            <span>Dia</span>
-        </button>
-        <button type="button" class="btn btn-outline-secondary">
-            <span>Semana</span>
         </button>
     </div>

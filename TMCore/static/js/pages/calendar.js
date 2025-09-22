@@ -29,50 +29,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addWeek() {
-  let year = document.getElementById('yearSelector').value;
-  console.log(document.getElementById('weekButton').value);
-  let week = document.getElementById('weekButton').value + 1;
-  document.getElementById('weekButton').innerHTML = week;
-  window.location.href = '/calendar/' + parseInt(week) + '/' + parseInt(year);
+  let weekNumber = parseInt(document.getElementById('weekButton').value) + 1;
+  let yearNow = document.getElementById('yearSelector').value;
+  if (weekNumber > 52) {
+    weekNumber = 1;
+    yearNow = parseInt(yearNow) + 1;
+  }
+  window.location.href = '/calendar/' + parseInt(weekNumber) + '/' + parseInt(yearNow);
 }
 
 function decreaseWeek() {
-  let year = document.getElementById('yearSelector').value;
-  console.log(document.getElementById('weekButton').value);
-  let week = document.getElementById('weekButton').value - 1;
-  document.getElementById('weekButton').innerHTML = week;
-  window.location.href = '/calendar/' + parseInt(week) + '/' + parseInt(year);
+  let weekNumber = document.getElementById('weekButton').value - 1;
+  let yearNow = document.getElementById('yearSelector').value;
+  if (weekNumber < 1) {
+    weekNumber = 52;
+    yearNow = parseInt(yearNow) - 1;
+  }
+  window.location.href = '/calendar/' + parseInt(weekNumber) + '/' + parseInt(yearNow);
 }
 
-function afterMonthChange() {
+function monthChange() {
   let month = document.getElementById('monthSelector').value;
   let year = document.getElementById('yearSelector').value;
-  if (month == 1) {
-      month = 12;
-      year = year - 1;
-  } else {
-      month = month - 1;
-  }
-  document.getElementById('monthSelector').value = month;
-  document.getElementById('yearSelector').value = year;
+  let weekNumber = getWeekOfYear(year + '-' + month + '-01');
   window.location.href = '/calendar/' + weekNumber + '/' + year;
 }
 
-function beforeMonthChange() {
+function yearChange() {
   let month = document.getElementById('monthSelector').value;
   let year = document.getElementById('yearSelector').value;
-  if (month == 12) {
-      month = 1;
-      year = parseInt(year) + 1;
-  } else {
-      month = parseInt(month) + 1;
-  }
-  document.getElementById('monthSelector').value = month;
-  document.getElementById('yearSelector').value = year;
-  //window.location.href = '/calendar/' + year + '/' + month;
+  let weekNumber = getWeekOfYear(year + '-' + month + '-01');
+  window.location.href = '/calendar/' + weekNumber + '/' + year;
 }
 
 function getWeekOfYear(date) {
+  console.log(date);
+  if (!(date instanceof Date)) {
+    date = new Date(date);
+  }
+  console.log(date);
   const firstDayOfAYear = new Date(date.getFullYear(), 0, 1); // Cria uma data para o primeiro dia do ano
   const dayOfWeek = firstDayOfAYear.getDay(); // Obtém o dia da semana (0 para Domingo, 1 para Segunda, etc.)
   let daysToAdd = 1; // Começa a semana na Segunda-feira
