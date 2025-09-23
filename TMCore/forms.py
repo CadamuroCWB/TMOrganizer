@@ -1,5 +1,6 @@
 from django import forms
 from django.core.mail import EmailMessage
+from datetime import date, timedelta
 
 from TMCore.models import Company  # Usar classe Company
 
@@ -47,3 +48,17 @@ class ContactUsForm(forms.Form):
             raise forms.ValidationError("O email é obrigatório.")
         return cleaned_data
 
+
+
+
+def get_current_week_dates():
+    today = date.today()
+    dow = today.weekday()  # segunda=0, ..., domingo=6
+    
+    # Ajustar para domingo (sempre voltar até o domingo anterior)
+    # Se hoje é domingo (dow=6), volta 6 dias
+    sunday = today - timedelta(days=(dow + 1) % 7)
+
+    return [(sunday + timedelta(days=i)) for i in range(7)]
+
+print(get_current_week_dates())
