@@ -92,3 +92,27 @@ function getWeekOfYear(date) {
   // Adiciona 1 para obter o número da semana do ano (indexado a partir de 1)
   return diffWeeks + 1;
 }
+
+function getCurrentWeekDates() {
+  const today = new Date();
+  
+  // Em JS, getDay() retorna 0=domingo, 1=segunda, ..., 6=sábado
+  const dow = today.getDay();
+  
+  // Voltar até domingo
+  const sunday = new Date(today);
+  sunday.setDate(today.getDate() - dow);
+
+  // Montar array de 7 dias
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(sunday);
+    d.setDate(sunday.getDate() + i);
+    days.push(d.toISOString().split("T")[0]); // formato YYYY-MM-DD
+  }
+
+  return days;
+}
+
+console.log(getCurrentWeekDates());
+
