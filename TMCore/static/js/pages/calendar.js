@@ -5,7 +5,7 @@
 * Description: JavaScript for Calendar page
 */
 
-const dateNow = new Date();
+const dateNow = window.location.href.includes('/calendar/') ? new Date(window.location.href.split('/calendar/')[1].split('/')[1] + '-' + (parseInt((window.location.href.split('/calendar/')[1].split('/')[0]) * 7 / 31 + 1)) + '-01') : new Date();
 const weekNumber = getWeekOfYear(dateNow);
 const weekDay = dateNow.getDay();
 const sunday = dateNow.getDate() - weekDay; // First day is the day of the month - the day of the week
