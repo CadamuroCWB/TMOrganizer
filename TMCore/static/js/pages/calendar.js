@@ -5,32 +5,29 @@
 * Description: JavaScript for Calendar page
 */
 
-const dateNow = window.location.href.includes('/calendar/') ? new Date(window.location.href.split('/calendar/')[1].split('/')[1] + '-' + (parseInt((window.location.href.split('/calendar/')[1].split('/')[0]) * 7 / 31 + 1)) + '-01') : new Date();
-const weekNumber = getWeekOfYear(dateNow);
-const weekDay = dateNow.getDay();
-const sunday = dateNow.getDate() - weekDay; // First day is the day of the month - the day of the week
-const dayNow = dateNow.getDate();
-const monthNow = dateNow.getMonth() + 1; //January is 0!
-const yearNow = dateNow.getFullYear();
-
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('todayButton').innerHTML = 'Hoje - ' + dayNow + '/' + monthNow + '/' + yearNow;
-  document.getElementById('weekButton').innerHTML = weekNumber;
-  document.getElementById('monthSelector').value = monthNow;
-  document.getElementById('yearSelector').value = yearNow;
+  const weekNumber = window.location.pathname.split('/')[2];
+  const yearNow = window.location.pathname.split('/')[3];
+  const currentWeekDates = getCurrentWeekDates(weekNumber, yearNow);
 
-  document.getElementById('sunday').innerHTML = 'Dom - ' + sunday + (sunday == dayNow ? ' (Hoje)' : '');
-  document.getElementById('monday').innerHTML = 'Seg - ' + (sunday + 1) + (sunday + 1 == dayNow ? ' (Hoje)' : '');
-  document.getElementById('tuesday').innerHTML = 'Ter - ' + (sunday + 2) + (sunday + 2 == dayNow ? ' (Hoje)' : '');
-  document.getElementById('wednesday').innerHTML = 'Qua - ' + (sunday + 3) + (sunday + 3 == dayNow ? ' (Hoje)' : '');
-  document.getElementById('thursday').innerHTML = 'Qui - ' + (sunday + 4) + (sunday + 4 == dayNow ? ' (Hoje)' : '');
-  document.getElementById('friday').innerHTML = 'Sex - ' + (sunday + 5) + (sunday + 5 == dayNow ? ' (Hoje)' : '');
-  document.getElementById('saturday').innerHTML = 'Sáb - ' + (sunday + 6) + (sunday + 6 == dayNow ? ' (Hoje)' : '');
+  console.log(new Date(currentWeekDates[0]).toLocaleDateString('pt-BR', { year: 'numeric', month: 'numeric', day: 'numeric' }));
+
+    document.getElementById('todayButton').innerHTML = 'Hoje - ' + new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'numeric', day: 'numeric' });
+  document.getElementById('monthButton').value = currentWeekDates[0].getMonth() + 1;
+  document.getElementById('yearButton').value = yearNow;
+
+  document.getElementById('sunday').innerHTML = 'Dom - ' + currentWeekDates[0].getDay() + (currentWeekDates[0].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('monday').innerHTML = 'Seg - ' + currentWeekDates[1].getDay() + (currentWeekDates[1].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('tuesday').innerHTML = 'Ter - ' + currentWeekDates[2].getDay() + (currentWeekDates[2].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('wednesday').innerHTML = 'Qua - ' + currentWeekDates[3].getDay() + (currentWeekDates[3].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('thursday').innerHTML = 'Qui - ' + currentWeekDates[4].getDay() + (currentWeekDates[4].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('friday').innerHTML = 'Sex - ' + currentWeekDates[5].getDay() + (currentWeekDates[5].getDay() == new Date().getDate() ? ' (Hoje)' : '');
+  document.getElementById('saturday').innerHTML = 'Sáb - ' + currentWeekDates[6].getDay() + (currentWeekDates[6].getDay() == new Date().getDate() ? ' (Hoje)' : '');
 });
 
 function addWeek() {
   let weekNumber = parseInt(document.getElementById('weekButton').value) + 1;
-  let yearNow = document.getElementById('yearSelector').value;
+  let yearNow = document.getElementById('yearButton').innerHTML;
   if (weekNumber > 52) {
     weekNumber = 1;
     yearNow = parseInt(yearNow) + 1;
@@ -40,7 +37,7 @@ function addWeek() {
 
 function decreaseWeek() {
   let weekNumber = document.getElementById('weekButton').value - 1;
-  let yearNow = document.getElementById('yearSelector').value;
+  let yearNow = document.getElementById('yearButton').innerHTML;
   if (weekNumber < 1) {
     weekNumber = 52;
     yearNow = parseInt(yearNow) - 1;
@@ -49,70 +46,28 @@ function decreaseWeek() {
 }
 
 function monthChange() {
-  let month = document.getElementById('monthSelector').value;
-  let year = document.getElementById('yearSelector').value;
+  let month = document.getElementById('monthButton').innerHTML;
+  let year = document.getElementById('yearButton').innerHTML;
   let weekNumber = getWeekOfYear(year + '-' + month + '-01');
   window.location.href = '/calendar/' + weekNumber + '/' + year;
 }
 
 function yearChange() {
-  let month = document.getElementById('monthSelector').value;
-  let year = document.getElementById('yearSelector').value;
+  let month = document.getElementById('monthButton').innerHTML;
+  let year = document.getElementById('yearButton').innerHTML;
   let weekNumber = getWeekOfYear(year + '-' + month + '-01');
   window.location.href = '/calendar/' + weekNumber + '/' + year;
 }
 
-function getWeekOfYear(date) {
-  console.log(date);
-  if (!(date instanceof Date)) {
-    date = new Date(date);
+function getCurrentWeekDates(weekNumber, year) {
+  const firstDayOfYear = new Date(year, 0, 1);
+  const daysToAdd = (weekNumber - 1) * 7;
+  const startOfWeek = new Date(firstDayOfYear.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+  const endOfWeek = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+  const dates = [];
+  for (let d = startOfWeek; d <= endOfWeek; d.setDate(d.getDate() + 1)) {
+    dates.push(d.toISOString().split("T")[0]);
   }
-  console.log(date);
-  const firstDayOfAYear = new Date(date.getFullYear(), 0, 1); // Cria uma data para o primeiro dia do ano
-  const dayOfWeek = firstDayOfAYear.getDay(); // Obtém o dia da semana (0 para Domingo, 1 para Segunda, etc.)
-  let daysToAdd = 1; // Começa a semana na Segunda-feira
-
-  // Se o primeiro dia do ano for Domingo, precisa adicionar 1 dia para começar a semana na Segunda-feira
-  if (dayOfWeek === 0) {
-    daysToAdd = 1;
-  } else {
-    // Se o primeiro dia do ano não for Domingo, calcula quantos dias faltam para a Segunda-feira
-    daysToAdd = 1 - dayOfWeek;
-  }
-
-  // Cria a data da primeira segunda-feira do ano
-  const firstMondayOfAYear = new Date(date.getFullYear(), 0, 1 + daysToAdd);
-
-  // Calcula o número de milissegundos entre a data e a primeira segunda-feira do ano
-  const diffMilliseconds = date.getTime() - firstMondayOfAYear.getTime();
-
-  // Converte a diferença de milissegundos para dias e depois para semanas
-  const diffWeeks = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24 * 7));
-
-  // Adiciona 1 para obter o número da semana do ano (indexado a partir de 1)
-  return diffWeeks + 1;
+  return dates;
 }
-
-function getCurrentWeekDates() {
-  const today = new Date();
-  
-  // Em JS, getDay() retorna 0=domingo, 1=segunda, ..., 6=sábado
-  const dow = today.getDay();
-  
-  // Voltar até domingo
-  const sunday = new Date(today);
-  sunday.setDate(today.getDate() - dow);
-
-  // Montar array de 7 dias
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(sunday);
-    d.setDate(sunday.getDate() + i);
-    days.push(d.toISOString().split("T")[0]); // formato YYYY-MM-DD
-  }
-
-  return days;
-}
-
-console.log(getCurrentWeekDates());
-
