@@ -31,37 +31,34 @@
                         <div class="d-flex justify-content-between">
                             {% include 'calendar_buttom.html' %}
                         </div>
-                            <table class="table table-bordered calendar-table table-striped" id="calendarTable">
-                                <thead class="table-light text-center">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered align-middle mb-0">
+                                <thead class="table-primary text-center">
                                     <tr>
-                                        <th id="sunday">Dom</th>
-                                        <th id="monday">Seg</th>
-                                        <th id="tuesday">Ter</th>
-                                        <th id="wednesday">Qua</th>
-                                        <th id="thursday">Qui</th>
-                                        <th id="friday">Sex</th>
-                                        <th id="saturday">Sáb</th>
+                                        <th scope="col" id="time">Horário</th>
+                                        <th scope="col" id="sunday">Dom</th>
+                                        <th scope="col" id="monday">Seg</th>
+                                        <th scope="col" id="tuesday">Ter</th>
+                                        <th scope="col" id="wednesday">Qua</th>
+                                        <th scope="col" id="thursday">Qui</th>
+                                        <th scope="col" id="friday">Sex</th>
+                                        <th scope="col" id="saturday">Sáb</th>
                                     </tr>
                                 </thead>
-                            <tbody>
-                                {% for semana in calendario %}
+                                <tbody class="text-center">
                                     <tr>
-                                        {% for dia, contador in semana %}
-                                            <td class="{% if dia == 0 %}preenchimento{% else %}dia-calendario{% endif %}">
-                                                {% if dia != 0 %}
-                                                    {{ dia }}
-                                                    {% for evento in eventos_por_dia %} {# Supondo que eventos_por_dia é um dicionário de eventos por dia #}
-                                                        {% if evento.data.day == dia %}
-                                                            <div class="evento">{{ evento.titulo }}</div>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-                                        {% endfor %}
+                                        <td id="list-group-items" class="bg-light"></td>
+                                        <td id="sunday-group-items"></td>
+                                        <td id="monday-group-items"></td>
+                                        <td id="tuesday-group-items"></td>
+                                        <td id="wednesday-group-items"></td>
+                                        <td id="thursday-group-items"></td>
+                                        <td id="friday-group-items"></td>
+                                        <td id="saturday-group-items"></td>
                                     </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div style="clear: both;"></div>
                 </div>
