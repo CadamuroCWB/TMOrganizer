@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const weekNumber = window.location.pathname.split('/')[2];
   const yearNow = window.location.pathname.split('/')[3];
   const currentWeekDates = getCurrentWeekDates(weekNumber, yearNow);
+  const monthSelect = document.getElementById('monthSelect');
 
   document.getElementById('todayButton').innerHTML = 'Hoje - ' + new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'numeric', day: 'numeric' });
   document.getElementById('weekButton').innerHTML = weekNumber;
@@ -36,8 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Adiciona o item à lista
     hourList.appendChild(itemList);
-}
-
+  }
 });
 
 function addWeek() {
@@ -100,3 +100,25 @@ function getCurrentWeekDates(weekNumber, year) {
   }
   return dates;
 }
+
+/* Modals */
+document.getElementById('btnSaveEvent').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Pegue os valores dos campos do modal
+    const title = document.getElementById('eventTitle').value;
+    const date = document.getElementById('eventDate').value;
+    // ... outros campos
+
+    fetch('/event/create/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ title, date /*, outros campos */ })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // feedback ao usuário, fechar modal, atualizar calendário, etc.
+    });
+});
