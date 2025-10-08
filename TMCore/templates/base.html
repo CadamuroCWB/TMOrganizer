@@ -67,6 +67,9 @@
                         <a class="nav-link" href="{% url 'company_list' %}">Empresas</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'naturalperson_list' %}">Pessoas Físicas</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'calendar' week_number=week_number|default:date.today.isocalendar.1 year=year|default:date.today.year %}">Calendário</a>
                     </li>
                     <!-- Adicione mais itens conforme necessário -->

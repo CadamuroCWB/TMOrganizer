@@ -5,6 +5,10 @@ from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+
 # main views
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -97,6 +101,7 @@ def get_events_by_week(request):
 @login_required
 def company_list(request):
     companies = Company.objects.all()
+    events = Event.objects.filter(company__in=companies)
     context = {
         'companies': companies,
         'title': 'Lista de empresas',
@@ -169,16 +174,31 @@ def calendar(request, week_number=0, year=None):
         year = date.today().year
     if not week_number:
         week_number = date.today().isocalendar()[1]
+    events = Event.objects.filter(company__in=companies)
     context = {
+        'companies': companies,
+        'events': events,
         'title': 'Techno Mania - Calendário',
         'msg_title': 'Agendamentos',
         'description': 'Faça seus agendamentos aqui.',
         'keywords': 'calendário, eventos, datas importantes',
+        'current_month': date.today().month,
         'week_number': week_number,
         'year': year,
         'date': date.today(),
     }
     return render(request, 'calendar.html', context)
+
+@csrf_exempt
+def event_create(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        Event.objects.create(
+            title=data['title'],
+            date=data['date'],
+            # ... outros campos
+        )
+        return JsonResponse({'success': True})
 
 @login_required
 def opening_hours(request):

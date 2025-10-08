@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Excluir Pessoa Física</h1>
+<p>Tem certeza que deseja excluir <strong>{{ object }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    <a href="{% url 'naturalperson_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
