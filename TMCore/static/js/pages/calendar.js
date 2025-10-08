@@ -164,12 +164,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const weekNumber = window.location.pathname.split('/')[2];
   const yearNow = window.location.pathname.split('/')[3];
   const currentWeekDates = getCurrentWeekDates(weekNumber, yearNow);
-<<<<<<< HEAD
   const weekDaysShort = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   const weekDaysEN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-=======
-  const monthSelect = document.getElementById('monthSelect');
->>>>>>> f41aefbaa8d9f8c16b381f5d1e0e2b34e0b97e11
 
   document.getElementById('todayButton').innerHTML = 'Hoje - ' + new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'numeric', day: 'numeric' });
   document.getElementById('weekButton').innerHTML = weekNumber;
@@ -272,7 +268,6 @@ function getCurrentWeekDates(weekNumber, year) {
   return dates;
 }
 
-<<<<<<< HEAD
 // Function to load participants into the dropdown
 function loadParticipants() {
   // Verificar se o elemento existe antes de tentar carregar participantes
@@ -435,26 +430,3 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-=======
-/* Modals */
-document.getElementById('btnSaveEvent').addEventListener('click', function(e) {
-    e.preventDefault();
-    // Pegue os valores dos campos do modal
-    const title = document.getElementById('eventTitle').value;
-    const date = document.getElementById('eventDate').value;
-    // ... outros campos
-
-    fetch('/event/create/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify({ title, date /*, outros campos */ })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // feedback ao usuário, fechar modal, atualizar calendário, etc.
-    });
-});
->>>>>>> f41aefbaa8d9f8c16b381f5d1e0e2b34e0b97e11

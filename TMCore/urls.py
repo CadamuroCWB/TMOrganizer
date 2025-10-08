@@ -8,11 +8,8 @@ from .views import IndexView, about
 from .views import calendar, event_create, contactus
 from .views import custom_404_view, custom_500_view
 from .views import company_list, company_create, company_update, company_delete, opening_hours
-<<<<<<< HEAD
 from .views import PersonViewSet, EventViewSet, get_events_by_week
-=======
 from .views_naturalperson import naturalperson_list, naturalperson_create, naturalperson_update, naturalperson_delete
->>>>>>> f41aefbaa8d9f8c16b381f5d1e0e2b34e0b97e11
 
 from django.urls import path, include
 

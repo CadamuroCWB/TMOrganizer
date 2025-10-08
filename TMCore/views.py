@@ -174,6 +174,13 @@ def calendar(request, week_number=0, year=None):
         year = date.today().year
     if not week_number:
         week_number = date.today().isocalendar()[1]
+    
+    # Buscar empresas do usuário logado ou todas as empresas se for superuser
+    if request.user.is_superuser:
+        companies = Company.objects.all()
+    else:
+        companies = Company.objects.filter(owner=request.user)
+    
     events = Event.objects.filter(company__in=companies)
     context = {
         'companies': companies,

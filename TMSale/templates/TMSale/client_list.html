@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load bootstrap5 %}
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Clientes</h2>
+        {% buttons %}
+            <a href="{% url 'client_create' %}" class="btn btn-outline-success">Adicionar Cliente</a>
+        {% endbuttons %}
+    </div>
+
+    <!-- Formulário de busca -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por nome, CNPJ, alias ou email" value="{{ search }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="regime" class="form-control">
+                        <option value="">Todos os regimes</option>
+                        {% for value, label in tax_regimes %}
+                            <option value="{{ value }}" {% if regime == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="end_consumer" class="form-control">
+                        <option value="">Todos</option>
+                        <option value="true" {% if end_consumer == 'true' %}selected{% endif %}>Consumidor Final</option>
+                        <option value="false" {% if end_consumer == 'false' %}selected{% endif %}>Não Consumidor Final</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabela de clientes -->
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Regime Tributário</th>
+                <th>Consumidor Final</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.id }}</td>
+                <td><a href="{% url 'client_detail' client.id %}">{{ client.name }}</a></td>
+                <td>{{ client.cnpj }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.get_tax_regime_display|default:"-" }}</td>
+                <td>
+                    {% if client.end_consumer %}
+                        <span class="badge bg-success">Sim</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Não</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% buttons %}
+                        <a href="{% url 'client_detail' client.id %}" class="btn btn-sm btn-outline-info">Ver</a>
+                        <a href="{% url 'client_update' client.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'client_delete' client.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                    {% endbuttons %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8">Nenhum cliente cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Paginação -->
+    {% if is_paginated %}
+    <nav aria-label="Navegação de páginas">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if search %}&search={{ search }}{% endif %}{% if regime %}&regime={{ regime }}{% endif %}{% if end_consumer %}&end_consumer={{ end_consumer }}{% endif %}">&laquo; Primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if regime %}&regime={{ regime }}{% endif %}{% if end_consumer %}&end_consumer={{ end_consumer }}{% endif %}">Anterior</a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item active">
+                <span class="page-link">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+            
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if regime %}&regime={{ regime }}{% endif %}{% if end_consumer %}&end_consumer={{ end_consumer }}{% endif %}">Próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search %}&search={{ search }}{% endif %}{% if regime %}&regime={{ regime }}{% endif %}{% if end_consumer %}&end_consumer={{ end_consumer }}{% endif %}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+{% endblock %}
