@@ -11,9 +11,85 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from datetime import datetime, timedelta
 
 from .forms import ContactUsForm, CompanyForm
 from .models import Company, Person, Calendar, Event
+from .serializers import PersonSerializer, EventSerializer
+
+# API ViewSets
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    
+@api_view(['GET'])
+def get_events_by_week(request):
+    """
+    Retorna eventos para uma semana específica.
+    Parâmetro: week_start (formato: YYYY-MM-DD) - Data de início da semana
+    """
+    try:
+        week_start_str = request.GET.get('week_start')
+        if not week_start_str:
+            # Se não for fornecida uma data, usa a data atual
+            week_start = datetime.now().date()
+            week_start = week_start - timedelta(days=week_start.weekday())  # Ajusta para segunda-feira
+        else:
+            week_start = datetime.strptime(week_start_str, '%Y-%m-%d').date()
+            
+        # Ajusta para domingo (início da semana)
+        week_start = week_start - timedelta(days=week_start.weekday() + 1)
+        week_end = week_start + timedelta(days=7)
+        
+        # Busca eventos que ocorrem durante a semana
+        events = Event.objects.filter(
+            start_datetime__date__gte=week_start,
+            start_datetime__date__lt=week_end
+        ).order_by('start_datetime')
+        
+        # Serializa os eventos
+        serializer = EventSerializer(events, many=True)
+        
+        # Organiza os eventos por dia da semana
+        events_by_day = {
+            'sunday': [],
+            'monday': [],
+            'tuesday': [],
+            'wednesday': [],
+            'thursday': [],
+            'friday': [],
+            'saturday': []
+        }
+        
+        day_mapping = {
+            0: 'monday',
+            1: 'tuesday',
+            2: 'wednesday',
+            3: 'thursday',
+            4: 'friday',
+            5: 'saturday',
+            6: 'sunday'
+        }
+        
+        for event in serializer.data:
+            event_date = datetime.strptime(event['start_datetime'], '%Y-%m-%dT%H:%M:%SZ').date()
+            day_of_week = event_date.weekday()
+            day_name = day_mapping[day_of_week]
+            events_by_day[day_name].append(event)
+        
+        return Response({
+            'week_start': week_start.strftime('%Y-%m-%d'),
+            'week_end': week_end.strftime('%Y-%m-%d'),
+            'events_by_day': events_by_day
+        })
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
 
 # Dolar
 

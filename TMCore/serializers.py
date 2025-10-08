@@ -13,6 +13,13 @@ class CalendarSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     participants = PersonSerializer(many=True, read_only=True)
+    participant_ids = serializers.PrimaryKeyRelatedField(
+        source='participants',
+        queryset=Person.objects.all(),
+        many=True,
+        write_only=True,
+        required=False
+    )
 
     class Meta:
         model = Event
@@ -24,13 +31,10 @@ class EventSerializer(serializers.ModelSerializer):
             'end_datetime',
             'location',
             'participants',
+            'participant_ids',
             'all_day'
         ]
         read_only_fields = ['id']
-
-        extra_kwargs = {
-            'participants': {'required': False}
-        }
 
 class FullCalendarEventSerializer(serializers.ModelSerializer):
     class Meta:
