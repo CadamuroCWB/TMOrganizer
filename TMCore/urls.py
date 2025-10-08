@@ -8,6 +8,7 @@ from .views import IndexView, about
 from .views import calendar, event_create, contactus
 from .views import custom_404_view, custom_500_view
 from .views import company_list, company_create, company_update, company_delete, opening_hours
+from .views_naturalperson import naturalperson_list, naturalperson_create, naturalperson_update, naturalperson_delete
 
 from django.urls import path, include
 
@@ -30,4 +31,9 @@ urlpatterns = [
     path('companies/<int:pk>/delete/', company_delete, name='company_delete'),
     # end CRUD company
     path('contactus/', contactus, name='contactus'),
+    # CRUD NaturalPerson
+    path('naturalpersons/', naturalperson_list, name='naturalperson_list'),
+    path('naturalpersons/create/', naturalperson_create, name='naturalperson_create'),
+    path('naturalpersons/<int:pk>/edit/', naturalperson_update, name='naturalperson_update'),
+    path('naturalpersons/<int:pk>/delete/', naturalperson_delete, name='naturalperson_delete'),
 ]

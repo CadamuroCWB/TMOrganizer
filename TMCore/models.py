@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.forms import ValidationError
+from django.conf import settings
 
 from stdimage.models import StdImageField  # images
 
@@ -264,6 +265,20 @@ class NaturalPerson(Person):
     issuing_agency = models.CharField('Órgão emissor', max_length=100, blank=True, null=True)
     voter_registration = models.CharField('Título de eleitor', max_length=12, unique=True, blank=True, null=True)
     reservist_certificate = models.CharField('Certificado de reservista', max_length=12, unique=True, blank=True, null=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Usuário',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+    owner_company = models.ForeignKey(
+        'Company',
+        verbose_name='Empresa',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = 'Pessoa Física'

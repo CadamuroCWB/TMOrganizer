@@ -25,6 +25,7 @@ from .models import Company, Person, Calendar, Event
 @login_required
 def company_list(request):
     companies = Company.objects.all()
+    events = Event.objects.filter(company__in=companies)
     context = {
         'companies': companies,
         'title': 'Lista de empresas',
