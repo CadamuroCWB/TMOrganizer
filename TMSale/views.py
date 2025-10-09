@@ -122,6 +122,7 @@ class ClientListView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['date'] = date.today()
         context['title'] = 'Techno Mania - Clientes'
         context['search'] = self.request.GET.get('search', '')
         context['regime'] = self.request.GET.get('regime', '')
@@ -138,6 +139,7 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['date'] = date.today()
         context['title'] = f'Cliente - {self.object.name}'
         return context
 
@@ -155,6 +157,7 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['date'] = date.today()
         context['title'] = 'Novo Cliente'
         context['action'] = 'Criar'
         return context
@@ -179,6 +182,7 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Editar Cliente - {self.object.name}'
         context['action'] = 'Atualizar'
+        context['date'] = date.today()
         return context
     
     def form_valid(self, form):
@@ -196,6 +200,7 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Excluir Cliente - {self.object.name}'
+        context['date'] = date.today()
         return context
     
     def delete(self, request, *args, **kwargs):
