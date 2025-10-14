@@ -94,7 +94,7 @@ def contact_delete(request, pk):
 class ClientListView(LoginRequiredMixin, ListView):
     """Lista de clientes com paginação e busca"""
     model = Client
-    template_name = 'client_list.html'
+    template_name = 'TMSale/client_list.html'
     context_object_name = 'clients'
     paginate_by = 20
     
@@ -134,7 +134,7 @@ class ClientListView(LoginRequiredMixin, ListView):
 class ClientDetailView(LoginRequiredMixin, DetailView):
     """Detalhes do cliente"""
     model = Client
-    template_name = 'client_detail.html'
+    template_name = 'TMSale/client_detail.html'
     context_object_name = 'client'
     
     def get_context_data(self, **kwargs):
@@ -147,7 +147,7 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
 class ClientCreateView(LoginRequiredMixin, CreateView):
     """Criação de cliente"""
     model = Client
-    template_name = 'client_form.html'
+    template_name = 'TMSale/client_form.html'
     fields = [
         'name', 'alias', 'cnpj', 'email', 'phone', 'address',
         'start_date', 'tax_regime', 'legal_nature', 'end_consumer',
@@ -170,7 +170,7 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
     """Edição de cliente"""
     model = Client
-    template_name = 'client_form.html'
+    template_name = 'TMSale/client_form.html'
     fields = [
         'name', 'alias', 'cnpj', 'email', 'phone', 'address',
         'start_date', 'tax_regime', 'legal_nature', 'end_consumer',
@@ -193,7 +193,7 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     """Exclusão de cliente"""
     model = Client
-    template_name = 'client_confirm_delete.html'
+    template_name = 'TMSale/client_confirm_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('client_list')
     

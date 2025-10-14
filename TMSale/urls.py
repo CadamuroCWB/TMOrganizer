@@ -22,10 +22,10 @@ urlpatterns = [
     
     # Class-Based Views para Client (alternativa elegante ao CRUD)
     path('clients/', ClientListView.as_view(), name='client_list'),
-    path('clients/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
+    path('clients/<uuid:pk>/', ClientDetailView.as_view(), name='client_detail'),
     path('clients/create/', ClientCreateView.as_view(), name='client_create'),
-    path('clients/<int:pk>/edit/', ClientUpdateView.as_view(), name='client_update'),
-    path('clients/<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
+    path('clients/<uuid:pk>/edit/', ClientUpdateView.as_view(), name='client_update'),
+    path('clients/<uuid:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
     
     # API REST endpoints (ViewSets)
     path('api/', include(router.urls)),

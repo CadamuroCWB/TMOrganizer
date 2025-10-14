@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ client.name }}</h2>
+    {% buttons %}
+        <a href="{% url 'client_update' client.id %}" class="btn btn-outline-primary">Editar</a>
+        <a href="{% url 'client_delete' client.id %}" class="btn btn-outline-danger">Excluir</a>
+        <a href="{% url 'client_list' %}" class="btn btn-secondary">Voltar à Lista</a>
+    {% endbuttons %}
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Informações do Cliente</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Nome:</strong> {{ client.name }}</p>
+                        <p><strong>Nome Fantasia:</strong> {{ client.alias|default:"-" }}</p>
+                        <p><strong>CNPJ:</strong> {{ client.cnpj }}</p>
+                        <p><strong>Email:</strong> {{ client.email|default:"-" }}</p>
+                        <p><strong>Telefone:</strong> {{ client.phone|default:"-" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Data de Abertura:</strong> {{ client.start_date|default:"-" }}</p>
+                        <p><strong>Regime Tributário:</strong> {{ client.get_tax_regime_display|default:"-" }}</p>
+                        <p><strong>Natureza Jurídica:</strong> {{ client.legal_nature|default:"-" }}</p>
+                        <p><strong>Consumidor Final:</strong> 
+                            {% if client.end_consumer %}
+                                <span class="badge bg-success">Sim</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Não</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>Sujeito a Protesto:</strong> 
+                            {% if client.subject_protest %}
+                                <span class="badge bg-warning">Sim</span>
+                            {% else %}
+                                <span class="badge bg-success">Não</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                {% if client.address %}
+                <hr>
+                <h6>Endereço</h6>
+                <p>{{ client.address }}</p>
+                {% endif %}
+                
+                {% if client.isic.all %}
+                <hr>
+                <h6>CNAEs</h6>
+                <div class="d-flex flex-wrap">
+                    {% for isic in client.isic.all %}
+                        <span class="badge bg-info me-1 mb-1">{{ isic.code }} - {{ isic.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        {% if client.logo %}
+        <div class="card">
+            <div class="card-header">
+                <h5>Logo</h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ client.logo.url }}" alt="Logo {{ client.name }}" class="img-fluid" style="max-height: 200px;">
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5>Informações do Sistema</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>ID:</strong> {{ client.id }}</p>
+                <p><strong>Criado em:</strong> {{ client.created_at|date:"d/m/Y H:i" }}</p>
+                <p><strong>Atualizado em:</strong> {{ client.updated_at|date:"d/m/Y H:i" }}</p>
+                {% if client.home_directory %}
+                <p><strong>Diretório:</strong> {{ client.home_directory }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
